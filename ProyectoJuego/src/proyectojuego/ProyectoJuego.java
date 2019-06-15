@@ -7,7 +7,7 @@ package proyectojuego;
 
 /**
  *
- * @author Jesus Barrios
+ * @author Jesus Barrios y Ricardo Serrano
  */
 public class ProyectoJuego {
 
