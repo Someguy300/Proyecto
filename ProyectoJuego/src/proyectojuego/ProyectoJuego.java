@@ -17,8 +17,9 @@ public class ProyectoJuego {
     public static void main(String[] args) {
         // TODO code application logic here
         Juego j = new Juego(); //Juego seria nuestra clase control
+        Laberinto l = new Laberinto();
         //j.iniciar;
-        j.laberintoCompleto();
+        l.laberintoCompleto();
     }
     
 }
