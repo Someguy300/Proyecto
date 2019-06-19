@@ -25,7 +25,7 @@ public class Juego {
     public char [][] setupParedesLaberinto(char [][] vec){
         for (int i = 0; i < vec.length; i++) {
             for (int j = 0; j < vec[i].length; j++) {
-                if ((i==0 || i==9) || (j==0 || j==9)){ //Determina paredes exteriores
+                if ((i==0 || i==(vec.length-1)) || (j==0 || j==(vec[i].length-1))){ //Determina paredes exteriores
                     vec[i][j]= p;
                 } else {
                     vec[i][j] = '░';   //Placeholder del interior
