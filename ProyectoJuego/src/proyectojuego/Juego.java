@@ -28,11 +28,12 @@ public class Juego {
                 if ((i==0 || i==9) || (j==0 || j==9)){ //Determina paredes exteriores
                     vec[i][j]= p;
                 } else {
-                    vec[i][j] = '░';   
+                    vec[i][j] = '░';   //Placeholder del interior
                 }   
             }  
-        }            
-        filaEntrada = (int) ((Math.random()*10));
+        } 
+        
+        filaEntrada = (int) ((Math.random()*10)); //Determina la posicion de la Entrada
         if (filaEntrada == 0 || filaEntrada == 9){
             columnaEntrada = 1+(int) (Math.random()*8);   
         }else if (filaEntrada>0 && filaEntrada<9){
@@ -44,7 +45,7 @@ public class Juego {
             }  
         }
         
-        filaSalida = (int) ((Math.random()*10));
+        filaSalida = (int) ((Math.random()*10)); //Determina la posicion de la salida
         if (filaSalida == 0 || filaSalida == 9){
             columnaSalida = 1+(int) (Math.random()*8);
         } else if (filaSalida>0 && filaSalida <9){
