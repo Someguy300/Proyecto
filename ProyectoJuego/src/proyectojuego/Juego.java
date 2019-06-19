@@ -20,7 +20,7 @@ public class Juego {
     int columnaSalida; 
     
     
-    char [][]lab1 = new char[30][30];
+    char [][]lab1 = new char[10][10];
     
     public char [][] setupParedesLaberinto(char [][] vec){
         for (int i = 0; i < vec.length; i++) {
@@ -36,7 +36,7 @@ public class Juego {
         filaEntrada = (int) ((Math.random()*vec.length)); //Determina la posicion de la Entrada
         if (filaEntrada == 0 || filaEntrada == (vec.length-1)){
             columnaEntrada = 1+(int) (Math.random()*(vec.length-2));   
-        }else if (filaEntrada>0 && filaEntrada<9){
+        }else if (filaEntrada>0 && filaEntrada<vec.length-1){
             columnaEntrada = (int) (Math.random()*vec.length);
             if (columnaEntrada >= vec.length/2){
                 columnaEntrada = vec.length-1;
@@ -48,7 +48,7 @@ public class Juego {
         filaSalida = (int) ((Math.random()*vec.length)); //Determina la posicion de la salida
         if (filaSalida == 0 || filaSalida == (vec.length-1)){
             columnaSalida = 1+(int) (Math.random()*(vec.length-2));
-        } else if (filaSalida>0 && filaSalida <9){
+        } else if (filaSalida>0 && filaSalida <vec.length-1){
             columnaSalida = (int) (Math.random()*vec.length);
             if (columnaSalida >= vec.length/2){
                 columnaSalida = vec.length-1;
@@ -68,12 +68,13 @@ public class Juego {
     char puerta = '#';
     int a=0;
     int b=0;
-//    public char pasillosLaberinto (char[][] vec){ //Determina los pasillos del laberinto
-//        char[][] aux = new char [vec.length-1][vec.length-1];
-//        
-//        
-//        return vec;
-//    }
+    public char pasillosLaberinto (char[][] vec){ //Determina los pasillos del laberinto
+        b = (int) (Math.random()*(vec.length));
+        if (b == 0 || b== vec.length-1)
+        
+        
+        return vec;
+    }
     
     
     public void impresionLab(char [][] vec){
