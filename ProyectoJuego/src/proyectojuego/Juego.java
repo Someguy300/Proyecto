@@ -38,8 +38,8 @@ public class Juego {
             columnaEntrada = 1+(int) (Math.random()*(vec.length-2));   
         }else if (filaEntrada>0 && filaEntrada<9){
             columnaEntrada = (int) (Math.random()*vec.length);
-            if (columnaEntrada >= 5){
-                columnaEntrada = 9;
+            if (columnaEntrada >= vec.length/2){
+                columnaEntrada = vec.length-1;
             } else {
                 columnaEntrada = 0;
             }  
@@ -50,8 +50,8 @@ public class Juego {
             columnaSalida = 1+(int) (Math.random()*(vec.length-2));
         } else if (filaSalida>0 && filaSalida <9){
             columnaSalida = (int) (Math.random()*vec.length);
-            if (columnaSalida >= 5){
-                columnaSalida = 9;
+            if (columnaSalida >= vec.length/2){
+                columnaSalida = vec.length-1;
             } else {
                 columnaSalida = 0;
             }  
