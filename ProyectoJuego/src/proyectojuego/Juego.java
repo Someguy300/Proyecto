@@ -33,11 +33,11 @@ public class Juego {
             }  
         } 
         
-        filaEntrada = (int) ((Math.random()*10)); //Determina la posicion de la Entrada
-        if (filaEntrada == 0 || filaEntrada == 9){
-            columnaEntrada = 1+(int) (Math.random()*8);   
+        filaEntrada = (int) ((Math.random()*vec.length)); //Determina la posicion de la Entrada
+        if (filaEntrada == 0 || filaEntrada == (vec.length-1)){
+            columnaEntrada = 1+(int) (Math.random()*(vec.length-2));   
         }else if (filaEntrada>0 && filaEntrada<9){
-            columnaEntrada = (int) (Math.random()*10);
+            columnaEntrada = (int) (Math.random()*vec.length);
             if (columnaEntrada >= 5){
                 columnaEntrada = 9;
             } else {
@@ -45,11 +45,11 @@ public class Juego {
             }  
         }
         
-        filaSalida = (int) ((Math.random()*10)); //Determina la posicion de la salida
-        if (filaSalida == 0 || filaSalida == 9){
-            columnaSalida = 1+(int) (Math.random()*8);
+        filaSalida = (int) ((Math.random()*vec.length)); //Determina la posicion de la salida
+        if (filaSalida == 0 || filaSalida == (vec.length-1)){
+            columnaSalida = 1+(int) (Math.random()*(vec.length-2));
         } else if (filaSalida>0 && filaSalida <9){
-            columnaSalida = (int) (Math.random()*10);
+            columnaSalida = (int) (Math.random()*vec.length);
             if (columnaSalida >= 5){
                 columnaSalida = 9;
             } else {
@@ -63,6 +63,20 @@ public class Juego {
         
         return vec;
     }
+    
+    
+    char puerta = '#';
+    int auxFilas;
+    int auxColumnas;
+    int i;
+    int j;
+//    public char pasillosLaberinto (char[][] vec, int filas, int columnas){ //Determina los pasillos del laberinto
+//        auxFilas = (int) (Math.random()*(filas-2));
+//        auxColumnas = (int) (Math.random()*(columnas-2));
+//        
+//        
+//        return vec;
+//    }
     
     
     public void impresionLab(char [][] vec){
@@ -89,23 +103,6 @@ public class Juego {
     
     
     
-    //Setters y Getters
-
-    public int getColumnaEntrada() {
-        return columnaEntrada;
-    }
-
-    public void setColumnaEntrada(int columnaEntrada) {
-        this.columnaEntrada = columnaEntrada;
-    }
-
-    public int getColumnaSalida() {
-        return columnaSalida;
-    }
-
-    public void setColumnaSalida(int columnaSalida) {
-        this.columnaSalida = columnaSalida;
-    }
     
     
     
