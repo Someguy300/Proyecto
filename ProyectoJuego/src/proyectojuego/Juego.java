@@ -68,9 +68,32 @@ public class Juego {
     char puerta = '#';
     int a=0;
     int b=0;
-    public char pasillosLaberinto (char[][] vec){ //Determina los pasillos del laberinto
-        b = (int) (Math.random()*(vec.length));
-        if (b == 0 || b== vec.length-1)
+    public char[][] pasillosLaberinto (char[][] vec){ //Determina los pasillos del laberinto
+        if (vec.length>1){
+            b = (int) (Math.random()*(vec.length));
+            if (b == 0 || b== vec.length-1){
+                do {                
+                    b = (int) (Math.random()*(vec.length));
+                } while (b == 0 || b== vec.length-1);
+            }
+            System.out.println(b);
+            a = (int) (Math.random()*(vec.length));
+            if (a == 0 || a== vec.length-1){
+                do {                
+                    a = (int) (Math.random()*(vec.length));
+                } while (a == 0 || a== vec.length-1);
+            }
+            System.out.println(a);
+            for (int i = 0; i < vec.length; i++) {
+                vec [i][b] = p;
+            }
+            vec [a][b] = puerta;
+            
+            
+            
+            
+            
+        }
         
         
         return vec;
@@ -92,7 +115,9 @@ public class Juego {
     
     public void laberintoCompleto(){ //Mentira que es el laberinto completo pero mientras, uso esto para ver que imprimo
         setupParedesLaberinto(lab1);
+        pasillosLaberinto(lab1);
         impresionLab(lab1);
+        
     }
     
     
