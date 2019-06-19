@@ -10,5 +10,12 @@ package proyectojuego;
  * @author Jesus Barrios
  */
 public class Juego {
+    char p = '▓';
+    char ent = 'E';
+    char sal = 'S';
+    
+    public void laberinto(){
+        
+    }
     
 }
