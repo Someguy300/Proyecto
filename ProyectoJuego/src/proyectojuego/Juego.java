@@ -20,7 +20,7 @@ public class Juego {
     int columnaSalida; 
     
     
-    char [][]lab1 = new char[10][10];
+    char [][]lab1 = new char[30][30];
     
     public char [][] setupParedesLaberinto(char [][] vec){
         for (int i = 0; i < vec.length; i++) {
@@ -66,13 +66,10 @@ public class Juego {
     
     
     char puerta = '#';
-    int auxFilas;
-    int auxColumnas;
-    int i;
-    int j;
-//    public char pasillosLaberinto (char[][] vec, int filas, int columnas){ //Determina los pasillos del laberinto
-//        auxFilas = (int) (Math.random()*(filas-2));
-//        auxColumnas = (int) (Math.random()*(columnas-2));
+    int a=0;
+    int b=0;
+//    public char pasillosLaberinto (char[][] vec){ //Determina los pasillos del laberinto
+//        char[][] aux = new char [vec.length-1][vec.length-1];
 //        
 //        
 //        return vec;
