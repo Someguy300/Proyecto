@@ -68,35 +68,68 @@ public class Laberinto {
     char puerta = '#';
     int a=0;
     int b=0;
-    public char[][] pasillosLaberinto (char[][] vec){ //Determina los pasillos del laberinto
-        if (vec.length>1){
-            b = (int) (Math.random()*(vec.length));
-            if (b == 0 || b== vec.length-1){
-                do {                
-                    b = (int) (Math.random()*(vec.length));
-                } while (b == 0 || b== vec.length-1);
+    public char[][] paredesLaberinto (char[][] vec){ //Determina los pasillos del laberinto
+        b = (int) (Math.random()*(vec.length));
+        if (b == 0 || b== vec.length-1){
+            do {                
+                b = (int) (Math.random()*(vec.length));
+            } while (b == 0 || b== vec.length-1);
+        }
+        System.out.println(b);
+        a = (int) (Math.random()*(vec.length));
+        if (a == 0 || a== vec.length-1){
+            do {                
+                a = (int) (Math.random()*(vec.length));
+            } while (a == 0 || a== vec.length-1);
+        }
+        System.out.println(a);
+        if (vec [0][b]==ent || vec [0][b]==sal){   //Crea la puerta si hay entrada s salida en la parte de arriba
+            vec[1][b] = puerta;
+            for (int i = 2; i < vec.length; i++) {
+                vec[i][b]=p;
+                
             }
-            System.out.println(b);
-            a = (int) (Math.random()*(vec.length));
-            if (a == 0 || a== vec.length-1){
-                do {                
-                    a = (int) (Math.random()*(vec.length));
-                } while (a == 0 || a== vec.length-1);
+        } else if ((vec [(vec.length-1)][b]== ent) || (vec [(vec.length-1)][b]==sal)){ //Crea la puerta si hay entrada s salida en la parte de abajo
+            vec [vec.length-2][b] = puerta;
+            for (int i = 1; i < vec.length-2; i++) {
+                vec[i][b]=p;
             }
-            System.out.println(a);
+        } else if (b==1 && hayEntradaOSalidaLateral(vec)){
             for (int i = 0; i < vec.length; i++) {
                 vec [i][b] = p;
+                if (vec[i][0]==ent || vec[i][0]==sal){
+                    vec[i][b] = puerta;
+                }
+            }
+        } else if (b==vec.length-2 && hayEntradaOSalidaLateral(vec)){
+            for (int i = 0; i < vec.length; i++) {
+                vec [i][b] = p;
+                if (vec[i][vec.length-1]==ent || vec[i][vec.length-1]==sal){
+                    vec[i][b] = puerta;
+                }
+            }
+        } else {
+            for (int i = 0; i < vec.length; i++) {
+                vec[i][b] = p;
             }
             vec [a][b] = puerta;
-            
-            
-            
-            
+        }
+        return vec;
+    }
+    
+    public boolean hayEntradaOSalidaLateral(char[][] vec){
+        for (int i = 0; i < vec.length; i++) {
+            for (int j = 0; j < vec.length; j++) {
+                if (vec[i][0]==ent || vec[i][vec.length-1]==sal){
+                    return true;
+                } else if (vec[i][0]==sal || vec[i][vec.length-1]==ent){
+                    return true;
+                }
+                
+            }
             
         }
-        
-        
-        return vec;
+        return false;
     }
     
     
@@ -115,8 +148,9 @@ public class Laberinto {
     
     public void laberintoCompleto(){ //Mentira que es el laberinto completo pero mientras, uso esto para ver que imprimo
         setupParedesLaberinto(lab1);
-        pasillosLaberinto(lab1);
+        paredesLaberinto(lab1);
         impresionLab(lab1);
         
     }
+    
 }
