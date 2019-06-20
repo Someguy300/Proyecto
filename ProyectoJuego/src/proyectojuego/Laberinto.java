@@ -66,54 +66,129 @@ public class Laberinto {
     
     
     char puerta = '#';
-    int a=0;
-    int b=0;
+    int a;
+    int b;
+    int i;
+    int j;
+    boolean horizontal=false;
+    char [][] aux;
     public char[][] paredesLaberinto (char[][] vec){ //Determina los pasillos del laberinto
-        b = (int) (Math.random()*(vec.length));
-        if (b == 0 || b== vec.length-1){
-            do {                
-                b = (int) (Math.random()*(vec.length));
-            } while (b == 0 || b== vec.length-1);
-        }
-        System.out.println(b);
-        a = (int) (Math.random()*(vec.length));
-        if (a == 0 || a== vec.length-1){
-            do {                
+        if (vec.length>2){
+            //System.out.println(a);
+            if (horizontal ==false){
+                    b = (int) (Math.random()*(vec.length));
+                if (b == 0 || b== vec.length-1){
+                    do {                
+                        b = (int) (Math.random()*(vec.length));
+                    } while (b == 0 || b== vec.length-1);
+                }
+                //System.out.println(b);
+                a = (int) (Math.random()*(vec[b].length));
+                if (a == 0 || a== vec[b].length-1){
+                    do {                
+                        a = (int) (Math.random()*(vec[b].length));
+                    } while (a == 0 || a== vec[b].length-1);
+                }
+                if (vec [0][b]==ent || vec [0][b]==sal){   //Crea la puerta si hay entrada s salida en la parte de arriba
+                    vec[1][b] = puerta;
+                    for (i = 2; i < vec.length; i++) {
+                        vec[i][b]=p;
+
+                    }
+
+                } else if ((vec [(vec[b].length-1)][b]== ent) || (vec [(vec[b].length-1)][b]==sal)){ //Crea la puerta si hay entrada s salida en la parte de abajo
+                    vec [vec[b].length-2][b] = puerta;
+                    for (i = 1; i < vec[b].length-2; i++) {
+                        vec[i][b]=p;
+                    }
+
+                } else if (b==1 && hayEntradaOSalidaLateral(vec)){
+                    for (i = 0; i < vec[b].length; i++) {
+                        vec [i][b] = p;
+                        if (vec[i][0]==ent || vec[i][0]==sal){
+                            vec[i][b] = puerta;
+                        }
+                    }
+
+                } else if (b==vec[b].length-2 && hayEntradaOSalidaLateral(vec)){
+                    for (i = 0; i < vec[b].length; i++) {
+                        vec [i][b] = p;
+                        if (vec[i][vec[b].length-1]==ent || vec[i][vec[b].length-1]==sal){
+                            vec[i][b] = puerta;
+                        }
+                    }
+
+                } else {
+                    for (i = 0; i < vec[b].length; i++) {
+                        vec[i][b] = p;
+                    }
+                    vec [a][b] = puerta;
+                }
+
+            } else if (horizontal ==true){
                 a = (int) (Math.random()*(vec.length));
-            } while (a == 0 || a== vec.length-1);
-        }
-        System.out.println(a);
-        if (vec [0][b]==ent || vec [0][b]==sal){   //Crea la puerta si hay entrada s salida en la parte de arriba
-            vec[1][b] = puerta;
-            for (int i = 2; i < vec.length; i++) {
-                vec[i][b]=p;
+                if (a == 0 || a== vec.length-1){
+                    do {                
+                        a = (int) (Math.random()*(vec.length));
+                    } while (a == 0 || a== vec.length-1);
+                }
+            //System.out.println(b);
+                b = (int) (Math.random()*(vec[a].length));
+                if (b == 0 || b== vec[a].length-1){
+                    do {                
+                        b = (int) (Math.random()*(vec[a].length));
+                    } while (b == 0 || b== vec[a].length-1);
+                }
+                    if (vec [b][0]==ent || vec [b][0]==sal){   //Crea la puerta si hay entrada s salida en la parte de arriba
+                    vec[b][1] = puerta;
+                    for (i = 2; i < vec.length; i++) {
+                        vec[b][i]=p;
+
+                   }
+
+                } else if ((vec [b][(vec[a].length-1)]== ent) || (vec [b][(vec[a].length-1)]==sal)){ //Crea la puerta si hay entrada s salida en la parte de abajo
+                    vec [b][vec[a].length-2] = puerta;
+                    for (i = 1; i < vec[a].length-2; i++) {
+                        vec[b][i]=p;
+                    }
+
+                } else if (b==1 && hayEntradaOSalidaLateral(vec)){
+                    for (i = 0; i < vec[a].length; i++) {
+                        vec [b][i] = p;
+                        if (vec[0][i]==ent || vec[0][i]==sal){
+                            vec[b][i] = puerta;
+                        }
+                    }
+
+                } else if (b==vec.length-2 && hayEntradaOSalidaLateral(vec)){
+                    for (i = 0; i < vec[a].length; i++) {
+                        vec [b][i] = p;
+                        if (vec[vec[a].length-1][i]==ent || vec[vec[a].length-1][i]==sal){
+                            vec[b][i] = puerta;
+                        }
+                    }
+
+                } else {
+                    for (i = 0; i < vec[a].length; i++) {
+                        vec[b][i] = p;
+                    }
+                    vec [b][a] = puerta;
+                }
+            }
+
+            if (horizontal==false){
+                horizontal = true;
+            } else if (horizontal ==true) {
+                horizontal = false;
+            }
+            
+//            aux = new char[vec.length-a][vec.length-b];
+//            paredesLaberinto(aux);
+            
                 
-            }
-        } else if ((vec [(vec.length-1)][b]== ent) || (vec [(vec.length-1)][b]==sal)){ //Crea la puerta si hay entrada s salida en la parte de abajo
-            vec [vec.length-2][b] = puerta;
-            for (int i = 1; i < vec.length-2; i++) {
-                vec[i][b]=p;
-            }
-        } else if (b==1 && hayEntradaOSalidaLateral(vec)){
-            for (int i = 0; i < vec.length; i++) {
-                vec [i][b] = p;
-                if (vec[i][0]==ent || vec[i][0]==sal){
-                    vec[i][b] = puerta;
-                }
-            }
-        } else if (b==vec.length-2 && hayEntradaOSalidaLateral(vec)){
-            for (int i = 0; i < vec.length; i++) {
-                vec [i][b] = p;
-                if (vec[i][vec.length-1]==ent || vec[i][vec.length-1]==sal){
-                    vec[i][b] = puerta;
-                }
-            }
-        } else {
-            for (int i = 0; i < vec.length; i++) {
-                vec[i][b] = p;
-            }
-            vec [a][b] = puerta;
         }
+        
+        
         return vec;
     }
     
