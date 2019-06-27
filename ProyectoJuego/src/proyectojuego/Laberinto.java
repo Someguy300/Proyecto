@@ -16,7 +16,7 @@ public class Laberinto {
     private char ent = 'E';
     private char sal = 'S';
     private char s ='░';
-    private char nada = ' ';
+    private char nada = '▒';
     private int nivelLab=1;
     private int tamaño;
     private char[][] lab;
@@ -68,7 +68,7 @@ public class Laberinto {
             columnaEntrada = (int) (1 + (Math.random() * (vec.length - 2)));
         } else if (filaEntrada > 0 && filaEntrada < vec.length-1) {
             columnaEntrada = (int) (Math.random() * vec.length-1);
-            if (columnaEntrada >= (vec.length) / 2) {
+            if (columnaEntrada > (vec.length) / 2) {
                 columnaEntrada = (vec.length) - 1;
             } else {
                 columnaEntrada = 0;
@@ -80,7 +80,7 @@ public class Laberinto {
             columnaSalida = 1+(int) (Math.random()*(vec.length-2));
         } else if (filaSalida>0 && filaSalida <vec.length-1){
             columnaSalida = (int) (Math.random()*vec.length);
-            if (columnaSalida >= vec.length/2){
+            if (columnaSalida > vec.length/2){
                 columnaSalida = vec.length-1;
             } else {
                 columnaSalida = 0;
@@ -99,60 +99,81 @@ public class Laberinto {
     
     
     
-    public void dividirLab(char[][] vec, int acumSec,int acumMain, int i, int j, int k, int aux){
-        if (k==0 || k==1 || k==2){
-            System.out.println("");
-        } else {
-            if (acumMain == 0){
-                if (acumSec == 0){
-                    j = (int) (((Math.random()) * (vec.length - 2)) + 1);
-                    for (i=1; i < vec.length-1; i++) {
-                        vec[i][j] = p;
-                    }
-                    i= (int) (((Math.random()) * (vec.length - 2)) + 1);
-                    vec[i][j]=s;
-
-                    System.out.println(vec.length);
-                    System.out.println(j);
-                    System.out.println(vec.length-j);
-
-                    impresionLab(vec);
-                    System.out.println("");
-                    dividirLab (vec, 1,1, i, j,k, aux);
+    public char [][] paredesIzq(char[][] vec, int i, int j,int aux){
+        if (largoParedesH(vec)>1 && largoParedesV(vec)>1){
+            if (esImpar(aux)==true){
+                j = (int) (1+Math.random() * (largoParedesV(vec)-1));
+                if (vec[9][j]==sal || vec[0][j]==sal || vec[0][j]==ent || vec[0][j]==ent){
+                    do {                        
+                        j = (int) (1+Math.random() * (largoParedesV(vec)-1));
+                    } while (vec[9][j]==s || vec[0][j]==s || vec[0][j]==ent || vec[0][j]==ent);
                 }
-            } else if (acumMain == 1) {
-                k = j; 
-                System.out.println(k);
-                j = (int) (((Math.random()) * (k - 2)) + 1);
-                for (i = 1; i < k; i++) {
-                    vec [j][i] = p;
-
+                for (int k = 0;  k <= largoParedesV(vec); k++) {
+                    vec [k][j] = p;
                 }
-                i= (int) (((Math.random()) * (k-1)) + 1);
-                vec[j][i]=s;
+                i = (int) (1 + Math.random() * (largoParedesV(vec)-1));
 
-                impresionLab(vec);
-                System.out.println("");
-                dividirLab (vec, 1,2, i, j,k, aux);
-
-            } else if (acumMain == 2){
-                k = j; 
-                System.out.println(k);
-                j = 1+ (int) (((Math.random()) * (k)));
-                for (i = 1; i < k; i++) {
-                    vec [i][j] = p;
-
+                vec [i][j] = nada;
+                aux = aux+1;
+                return paredesIzq(vec, j, i,aux);
+            } else {
+                j = (int) (1+Math.random() * (largoParedesH(vec)-1));
+//                if (vec[9][j]==sal || vec[0][j]==sal || vec[0][j]==ent || vec[0][j]==ent){
+//                    do {                        
+//                        j = (int) (2+Math.random() * (largoParedesV(vec)-2));
+//                    } while (vec[9][j]==s || vec[0][j]==s || vec[0][j]==ent || vec[0][j]==ent);
+//                }
+                for (int k = 1;  k <= largoParedesH(vec); k++) {
+                    vec [j][k] = p;
                 }
-                i= 1+(int) (((Math.random()) * (k)));
-                vec[i][j]=s;
-                //dividirLab (vec, 1,1, i, j,k, aux);  
+                i = (int) (1+ Math.random() *(largoParedesH(vec)-1));
+
+                vec [j][i] = nada;
+                aux = aux+1;
+                return paredesIzq(vec, j, i,aux);
             }
         }
-        
-        
-   
-     
+        return null;
     }
+    
+    
+    public int largoParedesV(char [][]vec){
+        for (int i = 1; i < vec.length; i++) {
+            for (int j = 1; j < vec.length; j++) {
+                if (vec[i][j]==s){
+                    for (int k = 1; k < vec.length; k++) {
+                        if (vec[k][j]==p){
+                            return k-1;
+                        } 
+                        
+                    }
+                }
+                
+            }
+            
+        }
+        return 0;
+    }
+    
+    public int largoParedesH(char[][]vec){
+        for (int i = 0; i < vec.length; i++) {
+            for (int j = 0; j < vec.length; j++) {
+                if (vec[i][j]==s){
+                    for (int k = 1; k < vec.length; k++) {
+                        if (vec[j][k]==p){
+                            return k-1;
+                        }
+                        
+                    }
+                }
+                
+            }
+            
+        }
+        return 0;
+    }
+
+    
     
     
     
@@ -222,15 +243,21 @@ public class Laberinto {
         }
     }
     
+    
+    public boolean esImpar(int n) {
+    if (n%2==0) return false;
+    else return true;
+    }
+    
+    
+    
     char [][]lab1 = new char [10][10];
-    
-    
     public void laberintoCompleto(){ //Mentira que es el laberinto completo pero mientras, uso esto para ver que imprimo
         tamañoLab(nivelLab);
         setupParedesLaberinto(lab1);
         entradaYSalida(lab1);
-        dividirLab(lab1,0,0, 0,0,3,0);
-        //paredesLaberinto(lab1, b, a);
+        System.out.println(largoParedesH(lab1));
+        paredesIzq(lab1, 0,0,1);
         impresionLab(lab1);
         
     }
