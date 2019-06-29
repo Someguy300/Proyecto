@@ -11,7 +11,7 @@ package proyectojuego;
  */
 public class Juego {
     
-    
+    int testing;
     
     
     

@@ -20,6 +20,7 @@ public class ProyectoJuego {
         Laberinto l = new Laberinto();
         //j.iniciar;
         l.laberintoCompleto();
+        
     }
     
 }
