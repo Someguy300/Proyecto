@@ -123,6 +123,7 @@ public class Laberinto {
     }
     
     int test;
+    int test2;
     
     public void hab2(char [][]vec, int i, int j, int aux){
         if (esImpar(aux)){
