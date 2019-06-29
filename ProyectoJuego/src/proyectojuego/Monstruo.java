@@ -10,5 +10,5 @@ package proyectojuego;
  * @author Jesus Barrios
  */
 public class Monstruo {
-    
+    int lol;
 }
