@@ -93,48 +93,67 @@ public class Laberinto {
         
         
     }
+    
+    public void Laberinto(char [][]vec, int i, int j, int cont ,int aux){
+        if (cont==1){
+            hab1(vec, i, j, 1);
+            hab2(vec, i, j, 1);
+            cont = cont+1;
+            Laberinto(vec, i, j, cont,aux);
+        } else if (cont==2|| cont==3){
+            cont++;
+            hab1(vec, i, j, aux+1);
+            Laberinto(vec, i, j, cont ,aux);
+            hab2(vec, i, j, aux+1);
+            Laberinto(vec, i, j, cont, aux);
+            
+        }
         
+    }
+    
+    
+    public void hab1(char [][]vec, int i, int j, int aux){
+        i = 1+ (int) (Math.random() * (largoParedesV(vec)-1));
+        System.out.println("auxhab1 "+i);
+        for ( j = j-1; j >= 1; j--) {
+            vec[i][j]=p;
+            
+        }
         
+    }
     
-    
-    
-    
-    public char [][] paredesIzq(char[][] vec, int i, int j,int aux){
-        if (largoParedesH(vec)>1 && largoParedesV(vec)>1){
-            if (esImpar(aux)==true){
-                j = (int) (1+Math.random() * (largoParedesV(vec)-1));
-                if (vec[9][j]==sal || vec[0][j]==sal || vec[0][j]==ent || vec[0][j]==ent){
-                    do {                        
-                        j = (int) (1+Math.random() * (largoParedesV(vec)-1));
-                    } while (vec[9][j]==s || vec[0][j]==s || vec[0][j]==ent || vec[0][j]==ent);
-                }
-                for (int k = 0;  k <= largoParedesV(vec); k++) {
-                    vec [k][j] = p;
-                }
-                i = (int) (1 + Math.random() * (largoParedesV(vec)-1));
-
-                vec [i][j] = nada;
-                aux = aux+1;
-                return paredesIzq(vec, j, i,aux);
-            } else {
-                j = (int) (1+Math.random() * (largoParedesH(vec)-1));
-//                if (vec[9][j]==sal || vec[0][j]==sal || vec[0][j]==ent || vec[0][j]==ent){
-//                    do {                        
-//                        j = (int) (2+Math.random() * (largoParedesV(vec)-2));
-//                    } while (vec[9][j]==s || vec[0][j]==s || vec[0][j]==ent || vec[0][j]==ent);
-//                }
-                for (int k = 1;  k <= largoParedesH(vec); k++) {
-                    vec [j][k] = p;
-                }
-                i = (int) (1+ Math.random() *(largoParedesH(vec)-1));
-
-                vec [j][i] = nada;
-                aux = aux+1;
-                return paredesIzq(vec, j, i,aux);
+    public void hab2(char [][]vec, int i, int j, int aux){
+        if (esImpar(aux)){
+            i = 1+ (int) (Math.random() * (largoParedesV(vec)-1));
+            System.out.println("auxhab2 "+i);
+            for (j = j+1; j < vec.length-1; j++) {
+                vec[i][j]=p;
+            }
+        } else {
+            i = 1+ (int) (Math.random() * (j-1));
+            System.out.println("auxhab2 "+i);
+            for (j = j+1; j < vec.length-1; j++) {
+                vec[i][j]=p;
             }
         }
-        return null;
     }
+    
+    
+    public int pared1(char [][] vec, int i, int j){
+        j = 1+(int) (Math.random() * (vec.length-2));
+        for (i = 1; i < vec.length-1; i++) {
+            vec[i][j]=p;
+            
+        }
+        return j;
+    }
+        
+        
+    
+    
+    
+    
+    
     
     
     public int largoParedesV(char [][]vec){
@@ -156,8 +175,8 @@ public class Laberinto {
     }
     
     public int largoParedesH(char[][]vec){
-        for (int i = 0; i < vec.length; i++) {
-            for (int j = 0; j < vec.length; j++) {
+        for (int i = 1; i < vec.length; i++) {
+            for (int j = 1; j < vec.length; j++) {
                 if (vec[i][j]==s){
                     for (int k = 1; k < vec.length; k++) {
                         if (vec[j][k]==p){
@@ -257,7 +276,12 @@ public class Laberinto {
         setupParedesLaberinto(lab1);
         entradaYSalida(lab1);
         System.out.println(largoParedesH(lab1));
-        paredesIzq(lab1, 0,0,1);
+        System.out.println(largoParedesV(lab1));
+//        System.out.println(pared1(lab1, 0, 0));
+        int j = pared1(lab1, 0, 0);
+        Laberinto(lab1, 0, j, 1, 0);
+        System.out.println(largoParedesH(lab1));
+        System.out.println(largoParedesV(lab1));
         impresionLab(lab1);
         
     }
