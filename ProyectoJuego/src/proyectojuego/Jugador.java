@@ -26,16 +26,16 @@ public class Jugador extends Personaje{
     
     private Objeto[] bolso = new Objeto[10];
     
-    public Objeto[] bolsoInicial(Objeto[] bolso, int i){
-        if (bolso[i] == null){
-        bolso[1] = new Objeto();
-        } else {
-            
-        }
+//    public Objeto[] bolsoInicial(Objeto[] bolso, int i){
+//        if (bolso[i] == null){
+//        bolso[1] = new Objeto();
+//        } else {
+//            
+//        }
 //        for (int i = 0; i < 3; i++) {
 //            
 //            bolso[i]= ;
 //        }
-    }
+//    }
 //    
 }

@@ -95,7 +95,7 @@ public class Laberinto {
         vec[filaEntrada][columnaEntrada] = ent;
         vec[filaSalida][columnaSalida] = sal;
         if (vec[filaEntrada][columnaEntrada] == vec[filaSalida][columnaSalida]) {
-            vec[filaSalida + 1][columnaSalida + 1] = sal;
+            vec[filaSalida + 1][columnaSalida] = sal;
         }
     }
 
@@ -171,8 +171,7 @@ public class Laberinto {
                     }
                 }
                 
-            }
-            
+            }  
         }
         return 0;
     }
@@ -194,58 +193,65 @@ public class Laberinto {
         return false;
     }
     
-    public void Laberinto(char [][]vec, int primCol, int ultCol, int primFil, int ultFil, int cont){
-        if (cont <4){
-            if (esImpar(cont)){
-                ponerParedVer(vec, primCol, ultCol, primFil, ultFil);
-            } else {
-                ponerParedHor(vec, primCol, ultCol, primFil, ultFil);
+    public boolean verificaParedesVert(char [][]vec, int n){
+        for (int k = 1; k < vec.length-1; k++) {
+            if (vec[k][n-1]== p){
+                return true;
+            } else if (vec[k][n+1]==p){
+                return true;
             }
-            Laberinto(vec, 1, ultCol-1, 1, ultFil, cont+1);
-            Laberinto(vec, ultCol+1, ultFil, ultFil+1, ultFil, cont+1);
         }
+        return false;
     }
     
     
-    public void hab1(char [][]vec, int i, int j){
-        i = 1+ (int) (Math.random() * (largoParedesV(vec)-1));
-//        System.out.println("auxhab1 "+i);
-        for ( j = j-1; j >= 1; j--) {
-            vec[i][j]=p;
-            
+    int ultColu;
+    int ultFila;
+    int aux1;
+    int aux2;
+    public void Laberinto(char [][]vec, int primCol, int ultCol, int primFil, int ultFil, int cont){
+        if (ultFila>3 && ultColu>3){
+            if (esImpar(cont)){
+                ultColu =ponerParedVer(vec, primCol, ultColu, primFil, ultFila);
+                aux1 = ultColu;
+            } else {
+                ultFila = ponerParedHor(vec, primCol, ultColu, primFil, ultFila);
+                aux2 = ultFila;
+            }
+            Laberinto(vec, primCol, ultColu-1, primFil, ultFila-1, cont+1);
+            Laberinto(vec, aux1+2, ultCol, aux2+1, ultFil, cont+1);
         }
+        
         
     }
     
-    public void hab2(char [][]vec, int i, int j){
-            i = 1+ (int) (Math.random() * (largoParedesV(vec)-1));
-//            System.out.println("auxhab2 "+i);
-            for (j = j+1; j < vec.length-1; j++) {
-                vec[i][j]=p;
-            }
-    }
-    
-    
-//    public int ponerPared(char [][] vec, int i, int j){
-//        j = 1+(int) (Math.random() * (vec.length-2));
-//        for (i = 1; i < vec.length-1; i++) {
-//            vec[i][j]=p;
-//            
-//        }
-//        return j;
-//    }
+   
     
     public int ponerParedVer(char [][] vec, int primCol, int ultCol, int primFil, int ultFil){
-        ultCol = primCol +(int) ((Math.random() * (ultCol-1)));
-        for (int k = primFil; k < ultFil; k++) {
+        int aux = ultCol;
+        ultCol = 1+ primCol +(int) ((Math.random() * (ultCol-1)));
+            for (int k = primFil; k <= ultFil; k++) {
+                if (vec[k][ultCol-1]==p || vec[k][ultCol+1]==p){            
+                    ultCol = primCol+(int) ((Math.random() * (aux-1)));
+                }  
+            }
+        for (int k = primFil; k <= ultFil; k++) {
             vec[k][ultCol]=p;
         }
-        return ultCol;
+        
+        return ultCol; 
     }
     
     public int ponerParedHor(char [][] vec, int primCol, int ultCol, int primFil, int ultFil){
-        ultFil = primFil +(int) ((Math.random() * (ultFil-1)));
-        for (int k = primCol; k < ultCol; k++) {
+        int aux = ultFil;
+        ultFil =  1 + primCol+ (int) ((Math.random() * (ultFil-1)));
+            for (int k = primCol; k <= ultCol; k++) {
+                if (vec[ultFil-1][k]==p || vec[ultFil+1][k]==p){            
+                    ultFil = primFil+(int) ((Math.random() * (aux)));
+                }  
+            }
+        
+        for (int k = primCol; k <= ultCol; k++) {
             vec[ultFil][k]=p;
         }
         return ultFil;
@@ -254,7 +260,9 @@ public class Laberinto {
     public void laberintoCompleto(char[][] tamaño){ //Mentira que es el laberinto completo pero mientras, uso esto para ver que imprimo
         setupParedesLaberinto(lab);
         entradaYSalida(lab);
-        Laberinto(lab, 1, lab.length-1, 1, lab.length-1, 1);
+        ultColu = lab.length-2;
+        ultFila = lab.length-2;
+        Laberinto(lab, 1, lab.length-2, 1, lab.length-2, 1);
         impresionLab(lab);
         
     }
