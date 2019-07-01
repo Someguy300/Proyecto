@@ -82,7 +82,9 @@ public class Juego {
         
     }
     
-    
+    public void moverJugador(char [][]vec, int lineaJug, int columJug){
+        
+    }
     
     
     
