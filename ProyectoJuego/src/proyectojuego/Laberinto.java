@@ -100,7 +100,9 @@ public class Laberinto {
         vec[filaEntrada][columnaEntrada] = ent;
         vec[filaSalida][columnaSalida] = sal;
         if (vec[filaEntrada][columnaEntrada] == vec[filaSalida][columnaSalida]) {
-            vec[vec.length-1][vec.length-2] = ent;
+            filaEntrada = vec.length-1;
+            columnaEntrada = vec.length-2;
+            vec[filaEntrada][columnaEntrada] = ent;
         }
     }
 
@@ -275,21 +277,22 @@ public class Laberinto {
                 if (vec[ultFil-1][k]== ent || vec[ultFil+1][k]== sal 
                         || vec[ultFil+1][k]== ent || vec[ultFil-1][k]== sal
                         || vec[ultFil-1][k]== p || vec[ultFil+1][k]== p
-                        || vec[ultFil-1][k]== nada || vec[ultFil+1][k]== nada
-                        || vec[ultFil][0]== p || vec[ultFil][0]== p
+                        || vec[ultFil][0]== p 
                         || vec[ultFil][0]== ent || vec[ultFil][0]== sal
                         || vec[ultFil][0]== p || vec[ultFil][0]== p){
                     algoLados=true;
                 }
             }
-        if (algoLados==true);{
-            ultFil = 1+primFil +(int) ((Math.random() * (aux-2)));
-        }
+        if (algoLados==true){
+            ultFil =  1 + primFil + (int) ((Math.random() * (ultFil-2)));
+            
+        } 
         
         for (int k = primCol; k < ultCol; k++) {
             vec[ultFil][k]=p;
         }
         return ultFil;
+        
     }
     
     public void ponerhuecoHor (char[][]vec, int ultFil, int primCol, int ultCol){
@@ -330,7 +333,16 @@ public class Laberinto {
     public void colocarMonstruoGuerrero(char [][]vec){
         for (int i = 0; i < vec.length; i++) {
             for (int j = 0; j < vec.length; j++) {
-                if ((vec[i][j]==s && vec[i-1][j]==s && vec[i][j+1]==s && vec[i+1][j]==s && vec[i][j-1]==s)){
+                if ((vec[i][j]==s && vec[i-1][j]==s && vec[i][j+1]==s && vec[i+1][j]==s && vec[i][j-1]==s
+                        && vec[i-1][j-1]==p && vec[i-1][j+1]==p && vec[i+1][j+1]==p && vec[i+1][j-1]==p)){
+                    double random = Math.random();
+                    if (random<=0.5){
+                        vec[i][j]= monstruoGuerrero;
+                    }
+                } else if ((vec[i][j]==s && vec[i-1][j]==s && vec[i+1][j]==s && vec[i][j-1]==s && vec[i][j-1]==p)
+                        || (vec[i][j]==s && vec[i-1][j]==p && vec[i+1][j]==s && vec[i][j-1]==s && vec[i][j-1]==s)
+                        || (vec[i][j]==s && vec[i-1][j]==s && vec[i+1][j]==s && vec[i][j-1]==p && vec[i][j-1]==s)
+                        || (vec[i][j]==s && vec[i-1][j]==p && vec[i+1][j]==p && vec[i][j-1]==s && vec[i][j-1]==s)){
                     double random = Math.random();
                     if (random<=0.5){
                         vec[i][j]= monstruoGuerrero;
@@ -352,8 +364,8 @@ public class Laberinto {
         ultFila = lab.length-2;
         Laberinto(lab, 1, lab.length-1, 1, lab.length-1, 1);
         colocarMonstruoNormal(lab);
-        colocarMonstruoMago(lab);
-        colocarMonstruoGuerrero(lab);
+  //      colocarMonstruoMago(lab);
+  //      colocarMonstruoGuerrero(lab);
         impresionLab(lab);
         
     }

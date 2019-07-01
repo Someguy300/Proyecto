@@ -17,6 +17,9 @@ public class Juego {
     private char Jugador;
     private char Monstruo;
     Laberinto l = new Laberinto();
+    Scanner sc = new Scanner(System.in);
+    boolean continuar=false;
+
     
     
     /**
@@ -27,7 +30,7 @@ public class Juego {
     public void iniciar(){
 //        Objeto o = new Objeto();
         
-        Scanner sc = new Scanner(System.in);
+        
         System.out.println("---------¡¡¡ BIENVENIDO AL LABERINTO SIN ESCAPE !!!!---------");
         
         
@@ -63,7 +66,7 @@ public class Juego {
                 + "\n(S) para bajar"
                 + "\n(D) para derecha\n");
         
-        boolean continuar;
+        
         do{ //Nuestro recorrido de niveles de Laberintos
             nivelLab++;
             System.out.println("Nivel " + nivelLab);
@@ -71,19 +74,91 @@ public class Juego {
             colocaEntrada(l.getLab());
             System.out.println("----------------------");
             l.impresionLab(l.getLab());
-//            if(posJugador llega a pos de la salida){
-//                continuar=false;
-//            }
-                continuar=false;
             
+            do {                
+                moverJugador(l.getLab(), linJugador, colJugador);
+                l.impresionLab(l.getLab());
+            } while (continuar==true);
 
-        } while(continuar);
+                
+
+        } while(continuar==true);
         
         
     }
     
     public void moverJugador(char [][]vec, int lineaJug, int columJug){
-        
+        String fuego = sc.next();
+        switch(fuego){
+            case "w":
+                if (vec[lineaJug-1][columJug]==l.getP()){
+                    System.out.println("hay una pared a donde te quieres mover, intenta de nuevo");
+                    moverJugador(vec, lineaJug, columJug);
+                } else {
+                if (verificaSalida(vec, lineaJug-1, columJug)==true){
+                    continuar = false;
+                } else {
+                vec[lineaJug-1][columJug]=Jugador;
+                vec[lineaJug][columJug]=l.getS();
+                linJugador = linJugador-1;
+                }
+                }
+                break;
+                
+            case "s":
+                if (vec[lineaJug+1][columJug]==l.getP()){
+                    System.out.println("hay una pared a donde te quieres mover, intenta de nuevo");
+                    moverJugador(vec, lineaJug, columJug);
+                } else{
+                if (verificaSalida(vec, lineaJug+1, columJug)==true) {
+                    continuar = false;
+                } else {
+                vec[lineaJug-1][columJug]=Jugador;
+                vec[lineaJug][columJug]=l.getS();
+                linJugador = linJugador-1;
+                }
+                vec[lineaJug+1][columJug]=Jugador;
+                vec[lineaJug][columJug]=l.getS();
+                linJugador = linJugador+1;
+                }
+                break;
+                
+            case "d":
+                if (vec[lineaJug][columJug+1]==l.getP()){
+                    System.out.println("hay una pared a donde te quieres mover, intenta de nuevo");
+                    moverJugador(vec, lineaJug, columJug);
+                } else{
+                if (verificaSalida(vec, lineaJug, (columJug+1))==true){
+                    continuar = false;
+                } else {
+                vec[lineaJug-1][columJug]=Jugador;
+                vec[lineaJug][columJug]=l.getS();
+                linJugador = linJugador-1;
+                }
+                vec[lineaJug][columJug+1]=Jugador;
+                vec[lineaJug][columJug]=l.getS();
+                colJugador = colJugador+1;
+                }
+                break;
+                
+            case "a":
+                if (vec[lineaJug][columJug-1]==l.getP()){
+                    System.out.println("hay una pared a donde te quieres mover, intenta de nuevo");
+                    moverJugador(vec, lineaJug, columJug);
+                } else{
+                if (verificaSalida(vec, lineaJug, columJug-1)==true) {
+                    continuar = false;
+                } else {
+                vec[lineaJug-1][columJug]=Jugador;
+                vec[lineaJug][columJug]=l.getS();
+                linJugador = linJugador-1;
+                }
+                vec[lineaJug][columJug-1]=Jugador;
+                vec[lineaJug][columJug]=l.getS();
+                colJugador = colJugador-1;
+                }
+                break;
+        }
     }
     
     
@@ -100,6 +175,23 @@ public class Juego {
             }
         }
         
+    }
+    
+    public boolean verificaSalida(char [][]vec, int linJug, int colJug){
+        if (vec[linJug][colJug]==l.getS()){
+            return true;
+        }
+        else return false;
+    }
+    
+    
+    
+    public boolean isContinuar() {
+        return continuar;
+    }
+
+    public void setContinuar(boolean continuar) {
+        this.continuar = continuar;
     }
     
 
