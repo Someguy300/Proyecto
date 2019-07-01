@@ -12,6 +12,13 @@ import java.util.Scanner;
 public class Juego {
   
     private int nivelLab=0;
+    private int linJugador;
+    private int colJugador;
+    private char Jugador;
+    private char Monstruo;
+    Laberinto l = new Laberinto();
+    
+    
     /**
      * Metodo que inicia el juego
      *
@@ -23,7 +30,7 @@ public class Juego {
         Scanner sc = new Scanner(System.in);
         System.out.println("---------¡¡¡ BIENVENIDO AL LABERINTO SIN ESCAPE !!!!---------");
         
-        Laberinto l = new Laberinto();
+        
 //        Jugador j = new Jugador(5, 10, bolso);
         
         
@@ -37,13 +44,13 @@ public class Juego {
             opcion = sc.nextInt();
             switch (opcion) {
                 case 1:
-
+                    setJugador('J');
                     break;
                 case 2:
-
+                    setJugador('X');
                     break;
                 case 3:
-
+                    setJugador('$');
                     break;
                 default:
                     System.out.println("Escogiste una opción erronea, por favor elige de nuevo.");
@@ -61,6 +68,9 @@ public class Juego {
             nivelLab++;
             System.out.println("Nivel " + nivelLab);
             l.laberintoCompleto(l.tamañoLab(nivelLab));
+            colocaEntrada(l.getLab());
+            System.out.println("----------------------");
+            l.impresionLab(l.getLab());
 //            if(posJugador llega a pos de la salida){
 //                continuar=false;
 //            }
@@ -71,10 +81,63 @@ public class Juego {
         
         
     }
+    
+    
+    
+    
+    
+    public void colocaEntrada(char [][]vec){
+        for (int i = 0; i < vec.length; i++) {
+            for (int j = 0; j < vec.length; j++) {
+                if (vec[i][j]==l.getEnt()){
+                    setLinJugador(i);
+                    setColJugador(j);
+                    vec[i][j]= Jugador;
+                    break;
+                }  
+            }
+        }
+        
+    }
+    
 
+    public int getLinJugador() {
+        return linJugador;
+    }
+
+    public void setLinJugador(int linJugador) {
+        this.linJugador = linJugador;
+    }
+
+    public int getColJugador() {
+        return colJugador;
+    }
+
+    public void setColJugador(int colJugador) {
+        this.colJugador = colJugador;
+    }
+    
     public int getNivelLab() {
         return nivelLab;
     }
+
+    public char getJugador() {
+        return Jugador;
+    }
+
+    public void setJugador(char Jugador) {
+        this.Jugador = Jugador;
+    }
+
+    public char getMonstruo() {
+        return Monstruo;
+    }
+
+    public void setMonstruo(char Monstruo) {
+        this.Monstruo = Monstruo;
+    }
+    
+    
     
     
 
