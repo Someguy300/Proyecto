@@ -369,6 +369,11 @@ public class Laberinto {
         impresionLab(lab);
         
     }
+    
+   
+    
+    
+    
 
     public char getP() {
         return p;

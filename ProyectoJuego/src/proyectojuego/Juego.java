@@ -20,7 +20,7 @@ public class Juego {
     private char Monstruo;
     Laberinto l = new Laberinto();
     Scanner sc = new Scanner(System.in);
-    boolean continuar=false;
+    boolean continuar;
 
     
     
@@ -69,11 +69,13 @@ public class Juego {
                 + "\n(D) para derecha\n");
         
         
+        
         do{ //Nuestro recorrido de niveles de Laberintos
             nivelLab++;
             System.out.println("Nivel " + nivelLab);
             l.laberintoCompleto(l.tamañoLab(nivelLab));
-            colocaEntrada(l.getLab());
+            
+            colocarEnEntrada(l.getLab());
             buscaSalida(l.getLab());
             System.out.println("----------------------");
             l.impresionLab(l.getLab());
@@ -97,6 +99,8 @@ public class Juego {
         }
         else return false;
     }
+    
+   
     
     public void moverJugador(char [][]vec, int lineaJug, int columJug){
         String fuego = sc.next();
@@ -150,7 +154,7 @@ public class Juego {
     
     
     
-    public void colocaEntrada(char [][]vec){
+    public void colocarEnEntrada(char [][]vec){
         for (int i = 0; i < vec.length; i++) {
             for (int j = 0; j < vec.length; j++) {
                 if (vec[i][j]==l.getEnt()){
