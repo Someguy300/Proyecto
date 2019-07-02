@@ -14,6 +14,8 @@ public class Juego {
     private int nivelLab=0;
     private int linJugador;
     private int colJugador;
+    private int lineaSalida;
+    private int columnaSalida;
     private char Jugador;
     private char Monstruo;
     Laberinto l = new Laberinto();
@@ -72,19 +74,28 @@ public class Juego {
             System.out.println("Nivel " + nivelLab);
             l.laberintoCompleto(l.tamañoLab(nivelLab));
             colocaEntrada(l.getLab());
+            buscaSalida(l.getLab());
             System.out.println("----------------------");
             l.impresionLab(l.getLab());
             
             do {                
                 moverJugador(l.getLab(), linJugador, colJugador);
                 l.impresionLab(l.getLab());
-            } while (continuar==true);
+            } while (verificarSalida(l.getLab())==false);
 
                 
 
         } while(continuar==true);
         
         
+    }
+    
+    
+    public boolean verificarSalida(char [][]vec){
+        if (vec[linJugador][colJugador]==vec[lineaSalida][columnaSalida]){
+            return true;
+        }
+        else return false;
     }
     
     public void moverJugador(char [][]vec, int lineaJug, int columJug){
@@ -95,14 +106,11 @@ public class Juego {
                     System.out.println("hay una pared a donde te quieres mover, intenta de nuevo");
                     moverJugador(vec, lineaJug, columJug);
                 } else {
-                if (verificaSalida(vec, lineaJug-1, columJug)==true){
-                    continuar = false;
-                } else {
                 vec[lineaJug-1][columJug]=Jugador;
                 vec[lineaJug][columJug]=l.getS();
                 linJugador = linJugador-1;
                 }
-                }
+                
                 break;
                 
             case "s":
@@ -110,13 +118,6 @@ public class Juego {
                     System.out.println("hay una pared a donde te quieres mover, intenta de nuevo");
                     moverJugador(vec, lineaJug, columJug);
                 } else{
-                if (verificaSalida(vec, lineaJug+1, columJug)==true) {
-                    continuar = false;
-                } else {
-                vec[lineaJug-1][columJug]=Jugador;
-                vec[lineaJug][columJug]=l.getS();
-                linJugador = linJugador-1;
-                }
                 vec[lineaJug+1][columJug]=Jugador;
                 vec[lineaJug][columJug]=l.getS();
                 linJugador = linJugador+1;
@@ -128,13 +129,6 @@ public class Juego {
                     System.out.println("hay una pared a donde te quieres mover, intenta de nuevo");
                     moverJugador(vec, lineaJug, columJug);
                 } else{
-                if (verificaSalida(vec, lineaJug, (columJug+1))==true){
-                    continuar = false;
-                } else {
-                vec[lineaJug-1][columJug]=Jugador;
-                vec[lineaJug][columJug]=l.getS();
-                linJugador = linJugador-1;
-                }
                 vec[lineaJug][columJug+1]=Jugador;
                 vec[lineaJug][columJug]=l.getS();
                 colJugador = colJugador+1;
@@ -146,13 +140,6 @@ public class Juego {
                     System.out.println("hay una pared a donde te quieres mover, intenta de nuevo");
                     moverJugador(vec, lineaJug, columJug);
                 } else{
-                if (verificaSalida(vec, lineaJug, columJug-1)==true) {
-                    continuar = false;
-                } else {
-                vec[lineaJug-1][columJug]=Jugador;
-                vec[lineaJug][columJug]=l.getS();
-                linJugador = linJugador-1;
-                }
                 vec[lineaJug][columJug-1]=Jugador;
                 vec[lineaJug][columJug]=l.getS();
                 colJugador = colJugador-1;
@@ -177,11 +164,17 @@ public class Juego {
         
     }
     
-    public boolean verificaSalida(char [][]vec, int linJug, int colJug){
-        if (vec[linJug][colJug]==l.getS()){
-            return true;
+    public void buscaSalida(char [][]vec){
+        for (int i = 0; i < vec.length; i++) {
+            for (int j = 0; j < vec.length; j++) {
+                if (vec[i][j]==l.getSal()){
+                    lineaSalida = i;
+                    columnaSalida = j;
+                    break;
+                }  
+            }
         }
-        else return false;
+        
     }
     
     
