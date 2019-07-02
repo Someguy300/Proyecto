@@ -9,7 +9,7 @@ package proyectojuego;
  */
 public class Jugador extends Personaje{
     
-    
+    Objeto pocion;
     /**
      * Constructor del Jugador
      * 
@@ -25,17 +25,50 @@ public class Jugador extends Personaje{
     }
     
     private Objeto[] bolso = new Objeto[10];
+    Objeto obj = new Objeto();
     
-//    public Objeto[] bolsoInicial(Objeto[] bolso, int i){
-//        if (bolso[i] == null){
-//        bolso[1] = new Objeto();
-//        } else {
-//            
-//        }
-//        for (int i = 0; i < 3; i++) {
-//            
-//            bolso[i]= ;
-//        }
-//    }
-//    
+    public void bolsoInicial(Objeto [] bolso){
+        for (int i = 0; i < bolso.length; i++) {
+            if (i>2){
+            bolso[i]=pocion = new Objeto();
+            }
+            
+        }
+    }
+    
+    public void mostrarBolso(Objeto [] bolso){
+        for (int i = 0; i < bolso.length; i++) {
+            if (bolso[i]==obj.getPocion()){
+                obj.datosPociones();
+            }
+            
+        }
+    }
+    
+
+    public Objeto[] getBolso() {
+        return bolso;
+    }
+
+  
+
+    public int getVida() {
+        return vida;
+    }
+
+    public void setVida(int vida) {
+        this.vida = vida;
+    }
+
+    public int getFuerza() {
+        return fuerza;
+    }
+
+    public void setFuerza(int fuerza) {
+        this.fuerza = fuerza;
+    }
+    
+    
+    
+    
 }

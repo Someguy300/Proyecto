@@ -18,6 +18,7 @@ public class Juego {
     private int columnaSalida;
     private char Jugador;
     private char Monstruo;
+    private Objeto[] bolso = new Objeto[10];
     Laberinto l = new Laberinto();
     Scanner sc = new Scanner(System.in);
     boolean continuar;
@@ -36,18 +37,20 @@ public class Juego {
         System.out.println("---------¡¡¡ BIENVENIDO AL LABERINTO SIN ESCAPE !!!!---------");
         
         
-//        Jugador j = new Jugador(5, 10, bolso);
+        Jugador j = new Jugador(5, 10, bolso);
+        j.bolsoInicial(bolso);
+        
         
         
         System.out.println("\nVeamos si eres capaz de sobrevivir a los laberintos llenos de sorpresas\n");
-        int opcion;
+        int selecPersonaje;
         do {
             System.out.println("\nEscoge tu jugador:"
                     + "\n(1) para --> J"
                     + "\n(2) para --> X"
                     + "\n(3) para --> $");
-            opcion = sc.nextInt();
-            switch (opcion) {
+            selecPersonaje = sc.nextInt();
+            switch (selecPersonaje) {
                 case 1:
                     setJugador('J');
                     break;
@@ -60,7 +63,7 @@ public class Juego {
                 default:
                     System.out.println("Escogiste una opción erronea, por favor elige de nuevo.");
             }
-        } while (opcion != 1 && opcion != 2 && opcion != 3);
+        } while (selecPersonaje != 1 && selecPersonaje != 2 && selecPersonaje != 3);
         
         System.out.println("\nPara moverte a traves del Laberinto utilizarás estas teclas:"
                 + "\n(W) para subir"
@@ -83,6 +86,8 @@ public class Juego {
             do {                
                 moverJugador(l.getLab(), linJugador, colJugador);
                 l.impresionLab(l.getLab());
+                j.mostrarBolso(bolso);
+                System.out.println("----------------------");
             } while (verificarSalida(l.getLab())==false);
 
                 
@@ -182,14 +187,12 @@ public class Juego {
     }
     
     
+    public void Pelea(char [][]vec){
+        
+    }
     
-    public boolean isContinuar() {
-        return continuar;
-    }
-
-    public void setContinuar(boolean continuar) {
-        this.continuar = continuar;
-    }
+    
+    
     
 
     public int getLinJugador() {
