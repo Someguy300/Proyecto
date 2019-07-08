@@ -422,6 +422,18 @@ public class Laberinto {
     public void setLab(char[][] lab) {
         this.lab = lab;
     }
+
+    public char getMonstruoNormal() {
+        return monstruoNormal;
+    }
+
+    public char getMonstruoMago() {
+        return monstruoMago;
+    }
+
+    public char getMonstruoGuerrero() {
+        return monstruoGuerrero;
+    }
     
     
     

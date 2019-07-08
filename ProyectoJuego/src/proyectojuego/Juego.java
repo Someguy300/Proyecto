@@ -22,6 +22,9 @@ public class Juego {
     Laberinto l = new Laberinto();
     Scanner sc = new Scanner(System.in);
     boolean continuar;
+    
+    
+    
 
     
     
@@ -83,11 +86,12 @@ public class Juego {
             System.out.println("----------------------");
             l.impresionLab(l.getLab());
             
-            do {                
+            do {    
+                System.out.println("----------------------");
                 moverJugador(l.getLab(), linJugador, colJugador);
+                System.out.println("-------------------------");
                 l.impresionLab(l.getLab());
                 j.mostrarBolso(bolso);
-                System.out.println("----------------------");
             } while (verificarSalida(l.getLab())==false);
 
                 
@@ -114,18 +118,25 @@ public class Juego {
                 if (vec[lineaJug-1][columJug]==l.getP()){
                     System.out.println("hay una pared a donde te quieres mover, intenta de nuevo");
                     moverJugador(vec, lineaJug, columJug);
+                } else if (vec[lineaJug-1][columJug]==l.getMonstruoGuerrero() 
+                        || vec[lineaJug-1][columJug]==l.getMonstruoMago() 
+                        || vec[lineaJug-1][columJug]==l.getMonstruoNormal()){
+                    System.out.println("Hay un monstruo");
                 } else {
                 vec[lineaJug-1][columJug]=Jugador;
                 vec[lineaJug][columJug]=l.getS();
                 linJugador = linJugador-1;
                 }
-                
                 break;
                 
             case "s":
                 if (vec[lineaJug+1][columJug]==l.getP()){
                     System.out.println("hay una pared a donde te quieres mover, intenta de nuevo");
                     moverJugador(vec, lineaJug, columJug);
+                    } else if (vec[lineaJug+1][columJug]==l.getMonstruoGuerrero() 
+                        || vec[lineaJug+1][columJug]==l.getMonstruoMago() 
+                        || vec[lineaJug+1][columJug]==l.getMonstruoNormal()){
+                    System.out.println("Hay un monstruo");
                 } else{
                 vec[lineaJug+1][columJug]=Jugador;
                 vec[lineaJug][columJug]=l.getS();
@@ -137,6 +148,10 @@ public class Juego {
                 if (vec[lineaJug][columJug+1]==l.getP()){
                     System.out.println("hay una pared a donde te quieres mover, intenta de nuevo");
                     moverJugador(vec, lineaJug, columJug);
+                    } else if (vec[lineaJug][columJug+1]==l.getMonstruoGuerrero() 
+                        || vec[lineaJug][columJug+1]==l.getMonstruoMago() 
+                        || vec[lineaJug][columJug+1]==l.getMonstruoNormal()){
+                    System.out.println("Hay un monstruo");
                 } else{
                 vec[lineaJug][columJug+1]=Jugador;
                 vec[lineaJug][columJug]=l.getS();
@@ -148,6 +163,10 @@ public class Juego {
                 if (vec[lineaJug][columJug-1]==l.getP()){
                     System.out.println("hay una pared a donde te quieres mover, intenta de nuevo");
                     moverJugador(vec, lineaJug, columJug);
+                } else if (vec[lineaJug][columJug-1]==l.getMonstruoGuerrero() 
+                        || vec[lineaJug][columJug-1]==l.getMonstruoMago() 
+                        || vec[lineaJug][columJug-1]==l.getMonstruoNormal()){
+                    System.out.println("Hay un monstruo");
                 } else{
                 vec[lineaJug][columJug-1]=Jugador;
                 vec[lineaJug][columJug]=l.getS();
@@ -190,6 +209,9 @@ public class Juego {
     public void Pelea(char [][]vec){
         
     }
+    
+    
+    
     
     
     

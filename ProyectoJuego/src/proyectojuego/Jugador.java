@@ -9,7 +9,8 @@ package proyectojuego;
  */
 public class Jugador extends Personaje{
     
-    Objeto pocion;
+    private Objeto[] bolso = new Objeto[10];
+    Pocima pocion;
     /**
      * Constructor del Jugador
      * 
@@ -24,26 +25,37 @@ public class Jugador extends Personaje{
         this.bolso=bolso;
     }
     
-    private Objeto[] bolso = new Objeto[10];
-    Objeto obj = new Objeto();
+   
     
     public void bolsoInicial(Objeto [] bolso){
         for (int i = 0; i < bolso.length; i++) {
-            if (i>2){
-            bolso[i]=pocion = new Objeto();
+            if (i<3){
+            bolso[i]=pocion = new Pocima();
             }
             
         }
     }
     
     public void mostrarBolso(Objeto [] bolso){
+        System.out.println("Dentro del bolso tienes: ");
         for (int i = 0; i < bolso.length; i++) {
-            if (bolso[i]==obj.getPocion()){
-                obj.datosPociones();
+            if (bolso[i]!=null){
+            Pocima p = ((Pocima)bolso[i]);
+            if(bolso[i].isEsPico()){
+                System.out.println("Soy un pico");
+            } else {
+                if(p.isEsAditiva()){
+                    System.out.println("Soy una pocima aditiva, mi valor es: " + p.getValor());
+                } else {
+                    System.out.println("Soy una pocima multiplicativa, mi valor es: "+ p.getValor());  
+                }   
             }
             
+            }
         }
     }
+    
+    
     
 
     public Objeto[] getBolso() {
