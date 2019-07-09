@@ -24,7 +24,7 @@ public class Juego {
     Scanner sc = new Scanner(System.in);
     boolean continuar;
 //    Monstruo m = new Monstruo(nivelLab);
-    private Jugador j = new Jugador(5, 10, bolso);
+    Jugador j = new Jugador(5, 10, bolso);
     
     
     /**
@@ -88,29 +88,15 @@ public class Juego {
             buscaSalida(l.getLab());
             System.out.println("----------------------");
             l.impresionLab(l.getLab());
+            j.imprimirInfo();
+            System.out.print("Nivel: " + (int)nivelLab);
 
             do {
-                System.out.println("----------------------");
-                System.out.println("Que deseas hacer?"
-                        + "\nMoverte(0)"
-                        + "\nVer tu bolsito Totto (1)");
-                int seleccion = sc.nextInt();
-                if (seleccion<0 || seleccion>1){
-                    do {  
-                        System.out.println("0 o 1, vuelve a intentar");
-                        seleccion = sc.nextInt();
-                    } while (seleccion<0 || seleccion>1);
-                }
-                switch (seleccion){
-                    case 0:
-                        moverJugador(l.getLab(), linJugador, colJugador);
-                        break;
-                    case 1:
-                        j.usarObjeto();
-                }
-               
-                System.out.println("-------------------------");
+                moverJugador(l.getLab(), linJugador, colJugador);
+                System.out.println("\n\n-------------------------");
                 l.impresionLab(l.getLab());
+                j.imprimirInfo();
+                System.out.print("Nivel: " + (int)nivelLab);
                 
             } while (verificarSalida(l.getLab()) == false && j.getVida()>0);
 
@@ -164,8 +150,9 @@ public class Juego {
     }
     
     public void moverJugador(char [][]vec, int lineaJug, int columJug){
-        System.out.println("En que direccion quieres moverte?\n"
-                + "(w)para subir\t(s)para bajar\t(d)para ir a la derecha\t(a)para ir a la izquierda");
+        System.out.println("\nQue quieres hacer?\n"
+                + "(w)Moverte hacia arriba\t(s)Moverte hacia abajo\t(d)Moverte a la derecha\t(a)Moverte a la izquierda"
+                + "\n(i)Abrir tu inventario");
         String fuego = sc.next();
         switch(fuego){
             case "w":
@@ -175,8 +162,8 @@ public class Juego {
                 } else if (vec[lineaJug - 1][columJug] == l.getMonstruoGuerrero()
                         || vec[lineaJug - 1][columJug] == l.getMonstruoMago()
                         || vec[lineaJug - 1][columJug] == l.getMonstruoNormal()) {
-                    System.out.println("-----------------------------\n"
-                            + "Hay un monstruo");
+                    System.out.println("\n-----------------------------"
+                            + "\nHay un monstruo");
                     boolean pelea = Pelea(vec, lineaJug-1, columJug);
                     if (pelea==true){
                     vec[lineaJug-1][columJug] = Jugador;
@@ -206,7 +193,8 @@ public class Juego {
                     } else if (vec[lineaJug+1][columJug]==l.getMonstruoGuerrero() 
                         || vec[lineaJug+1][columJug]==l.getMonstruoMago() 
                         || vec[lineaJug+1][columJug]==l.getMonstruoNormal()){
-                    System.out.println("Hay un monstruo");
+                   System.out.println("\n-----------------------------"
+                            + "\nHay un monstruo");
                     boolean pelea = Pelea(vec, lineaJug+1, columJug);
                     if (pelea==true){
                     vec[lineaJug+1][columJug] = Jugador;
@@ -236,7 +224,8 @@ public class Juego {
                 } else if (vec[lineaJug][columJug + 1] == l.getMonstruoGuerrero()
                         || vec[lineaJug][columJug + 1] == l.getMonstruoMago()
                         || vec[lineaJug][columJug + 1] == l.getMonstruoNormal()) {
-                    System.out.println("Hay un monstruo");
+                    System.out.println("\n-----------------------------"
+                            + "\nHay un monstruo");
                     boolean pelea = Pelea(vec, lineaJug, columJug+1);
                     if (pelea==true){
                     vec[lineaJug][columJug + 1] = Jugador;
@@ -266,7 +255,8 @@ public class Juego {
                 } else if (vec[lineaJug][columJug - 1] == l.getMonstruoGuerrero()
                         || vec[lineaJug][columJug - 1] == l.getMonstruoMago()
                         || vec[lineaJug][columJug - 1] == l.getMonstruoNormal()) {
-                    System.out.println("Hay un monstruo");
+                    System.out.println("\n-----------------------------"
+                            + "\nHay un monstruo");
                     boolean pelea = Pelea(vec, lineaJug, columJug-1);
                     if (pelea== true){
                     vec[lineaJug][columJug - 1] = Jugador;
@@ -288,6 +278,12 @@ public class Juego {
                     colJugador = colJugador - 1;
                 }
                 break;
+            case "i":
+                j.usarObjeto();
+                break;
+            default:
+                System.out.println("Seleccion erronea");
+                moverJugador(vec, lineaJug, columJug);
         }
     }
     
@@ -367,6 +363,8 @@ public class Juego {
             if (debuff<= 0.25){
                 System.out.println("Te pegaron un hechizo y te mandaron al regreso del laberinto");
                 j.setVida(j.getVida()+1);
+                j.setFuerza(j.getFuerza()-j.getBonusFuerza());
+                j.setBonusFuerza(0);
                 return false;
             }
             System.out.println("Fuerza del monstruo: "+mon.getFuerza());

@@ -34,6 +34,11 @@ public class Monstruo extends Personaje{
     public void setFuerza(double fuerza) {
         this.fuerza = fuerza;
     }
+
+    @Override
+    public void imprimirInfo() {
+        
+    }
     
     
     

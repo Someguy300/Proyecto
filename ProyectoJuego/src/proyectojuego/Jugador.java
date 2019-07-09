@@ -42,10 +42,10 @@ public class Jugador extends Personaje{
         System.out.println("Dentro del bolso tienes: ");
         for (int i = 0; i < bolso.length; i++) {
             if (bolso[i] != null) {
-                Pocima p = ((Pocima) bolso[i]);
                 if (bolso[i].isEsPico()) {
-                    System.out.println("Un pico");
+                    System.out.println("["+i+"]" +"Soy un pico, rompo paredes");
                 } else {
+                    Pocima p = ((Pocima) bolso[i]);
                     if (p.isEsAditiva()) {
                         System.out.println("["+i+"]" +" Soy una pocima aditiva, mi valor es: " + p.getValor());
                     } else {
@@ -280,6 +280,12 @@ public class Jugador extends Personaje{
 
     public void setBonusFuerza(double bonusFuerza) {
         this.bonusFuerza = bonusFuerza;
+    }
+
+    
+    @Override
+    public void imprimirInfo() {
+        System.out.println("Fuerza: "+fuerza +"\tVidas: "+(int)vida);
     }
     
     

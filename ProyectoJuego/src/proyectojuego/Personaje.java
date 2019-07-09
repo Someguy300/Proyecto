@@ -8,7 +8,7 @@ package proyectojuego;
  * @author Ricardo Serrano
  * @version
  */
-public class Personaje {
+public abstract class Personaje {
     
     protected double vida, fuerza;
     
@@ -31,4 +31,6 @@ public class Personaje {
     public Personaje(double fuerza){
         this.fuerza=fuerza;
     }
+    
+    public abstract void imprimirInfo();
 }
