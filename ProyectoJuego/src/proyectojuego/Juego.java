@@ -363,6 +363,12 @@ public class Juego {
             }
         }
         if (vec[linJugador][colJugador] == l.getMonstruoMago()) {
+            double debuff = Math.random();
+            if (debuff<= 0.25){
+                System.out.println("Te pegaron un hechizo y te mandaron al regreso del laberinto");
+                j.setVida(j.getVida()+1);
+                return false;
+            }
             System.out.println("Fuerza del monstruo: "+mon.getFuerza());
             System.out.println("Tu fuerza: "+j.getFuerza());
             if (j.getFuerza() > mon.getFuerza()) {
