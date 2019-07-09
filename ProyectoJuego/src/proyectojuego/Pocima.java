@@ -6,7 +6,7 @@
 package proyectojuego;
 
 /**
- *
+ *Clase donde se creará la Pocima
  * @author Pedro Barrios
  * @author Ricardo Serrano
  */
@@ -17,6 +17,9 @@ public class Pocima  extends Objeto{
     private double [] auxAditivo = {1,2,5,10,20};
     private double [] auxMult = {1.10,1.20,1.25,1.5,2};
     
+    /**
+     * Constructor que genera las pocimas
+     */
     public Pocima() {
         super(false);
         int random = (int) (Math.random()*1);

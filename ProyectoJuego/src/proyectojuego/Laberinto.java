@@ -285,7 +285,11 @@ public class Laberinto {
         vec[ultFil][n] = s;   
     }
     
-    
+    /**
+     * Me ubica al Monstruo Normal en el Laberinto
+     * 
+     * @param vec 
+     */
     public void colocarMonstruoNormal(char [][] vec){
         for (int i = 0; i < vec.length; i++) {
             for (int j = 0; j < vec.length; j++) {
@@ -299,6 +303,11 @@ public class Laberinto {
         }
     }
     
+    /**
+     * Me ubica al Monstruo Mago en el Laberinto
+     * 
+     * @param vec 
+     */
     public void colocarMonstruoMago(char [][]vec){
         for (int i = 0; i < vec.length; i++) {
             for (int j = 0; j < vec.length; j++) {
@@ -315,6 +324,11 @@ public class Laberinto {
         }
     }
     
+    /**
+     * Me ubica al Monstruo Guerrero en el Laberinto
+     * 
+     * @param vec 
+     */
     public void colocarMonstruoGuerrero(char [][]vec){
         for (int i = 0; i < vec.length; i++) {
             for (int j = 0; j < vec.length; j++) {
@@ -363,7 +377,11 @@ public class Laberinto {
         
     }
 
-    
+    /**
+     * Método que me imprimira el laberinto con todos los objetos
+     * 
+     * @param tamaño 
+     */
     public void laberintoCompleto(char[][] tamaño){ 
         setupParedesLaberinto(lab);
         entradaYSalida(lab);

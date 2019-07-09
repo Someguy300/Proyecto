@@ -2,7 +2,7 @@
 package proyectojuego;
 
 /**
- *
+ *Clase donde se creará el Pico
  * @author Pedro Barrios
  * @author Ricardo Serrano
  */

@@ -23,7 +23,7 @@ public class Juego {
     Laberinto l = new Laberinto();
     Scanner sc = new Scanner(System.in);
     boolean continuar;
-//    Monstruo m = new Monstruo(nivelLab);
+    private int monstruosDerrotados=0;
     Jugador j = new Jugador(5, 10, bolso);
     
     
@@ -47,6 +47,13 @@ public class Juego {
                 + "Los dioses te han otorgado un bolso Totto que puede guardar 10 objetos, ni mas ni menos,\n"
                 + "tambien te han dado esteriodes para que tengas 10 de fuerza y 5 setas de Ma*** de 1up");
         
+        System.out.println("\nLeyenda: "
+                + "\n> Los Monstruos son (Evitalos a toda costa):"
+                + "\n\t>> Normal: ß"
+                + "\n\t>> Guerrero: α"
+                + "\n\t>> Mago: Ω"
+                + "\n> Entrada es: E"
+                + "\n> Salida es: S");
         
         System.out.println("\n¡¡ Veamos cuánto tiempo eres capáz de sobrevivir !!\n");
         int selecPersonaje;
@@ -75,7 +82,7 @@ public class Juego {
                 + "\t\t(W) para subir"
                 + "\n(A) para izquierda              (D) para derecha\n"
                 + "\t\t(S) para bajar\n"
-                + "(I) Para ver tu inventario");
+                + "(I) Para ver tu inventario\n");
 
         do { //Nuestro recorrido de niveles de Laberintos
             
@@ -83,7 +90,6 @@ public class Juego {
             System.out.println("Nivel " + (int)nivelLab);
             l.laberintoCompleto(l.tamañoLab((int) nivelLab));
             j.bolsoInicial(bolso);
-
             colocarEnEntrada(l.getLab());
             buscaSalida(l.getLab());
             System.out.println("----------------------");
@@ -118,7 +124,7 @@ public class Juego {
                 + ">> Numeros de laberintos completados: " + nivelLab + "\n"
                 + ">> Tiempo jugado: " + tiempo + " s\n"
                 + ">> Tiempo promedio en cada laberinto: " + tiempo/nivelLab+ "\n"
-                + ">> Monstruos derrotados: " + "\n"
+                + ">> Monstruos derrotados: " + monstruosDerrotados +"\n"
                 + ">> Objetos conseguidos: " + "\n"
                 + ">> Objetos usados: " + "\n");
     }
@@ -141,7 +147,12 @@ public class Juego {
         }
     }
     
-    
+    /**
+     * Metodo que verifica si el jugador se encuentra en la posición de la salida
+     * 
+     * @param lab
+     * @return si esta en la salida o no
+     */
     public boolean verificarSalida(char [][]vec){
         if (vec[linJugador][colJugador]==vec[lineaSalida][columnaSalida]){
             return true;
@@ -149,6 +160,13 @@ public class Juego {
             return false;}
     }
     
+    /**
+     * Metodo que me permite mover al jugador
+     * 
+     * @param vec
+     * @param lineaJug
+     * @param columJug 
+     */
     public void moverJugador(char [][]vec, int lineaJug, int columJug){
         System.out.println("\nQue quieres hacer?\n"
                 + "(w)Moverte hacia arriba\t(s)Moverte hacia abajo\t(d)Moverte a la derecha\t(a)Moverte a la izquierda"
