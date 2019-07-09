@@ -93,7 +93,7 @@ public class Juego {
 
             do {
                 moverJugador(l.getLab(), linJugador, colJugador);
-                System.out.println("\n\n-------------------------");
+                System.out.println("\n-------------------------");
                 l.impresionLab(l.getLab());
                 j.imprimirInfo();
                 System.out.print("Nivel: " + (int)nivelLab);

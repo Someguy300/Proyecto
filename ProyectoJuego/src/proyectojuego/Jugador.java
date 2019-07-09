@@ -105,9 +105,11 @@ public class Jugador extends Personaje{
             System.out.println("El monstruo solto una pocima");
             pocion = new Pocima();
             if (pocion.isEsAditiva()){
-                System.out.println("Solto una pocion aditiva de +" +pocion.getValor());
+                System.out.println("\n-------------------------------------"
+                        + "\nSolto una pocion aditiva de +" +pocion.getValor());
             } else {
-                System.out.println("Solto una pocion multiplicativa de x" +pocion.getValor());
+                System.out.println("\n---------------------------------"
+                        + "\nSolto una pocion multiplicativa de x" +pocion.getValor());
             }
             if (bolsoLleno()==true){
                 System.out.println("Tu bolso esta lleno\n"
@@ -157,9 +159,11 @@ public class Jugador extends Personaje{
         if (random <= 0.8){
             pocion = new Pocima();
             if (pocion.isEsAditiva()){
-                System.out.println("Conseguiste una pocion aditiva de +" +pocion.getValor());
+                System.out.println("\n---------------------------------------"
+                        + "\nConseguiste una pocion aditiva de +" +pocion.getValor());
             } else {
-                System.out.println("Conseguiste una pocion multiplicativa de x" +pocion.getValor());
+                System.out.println("\n--------------------------------------"
+                        + "\nConseguiste una pocion multiplicativa de x" +pocion.getValor());
             }
             
             if (bolsoLleno()==true){
