@@ -20,7 +20,7 @@ public class Jugador extends Personaje{
      * @param fuerza
      * @param bolso 
      */
-    public Jugador(int vida, int fuerza, Objeto[] bolso) {
+    public Jugador(double vida, double fuerza, Objeto[] bolso) {
         super(vida, fuerza);
         this.vida = vida;
         this.fuerza = fuerza;
@@ -57,19 +57,19 @@ public class Jugador extends Personaje{
         return bolso;
     }
 
-    public int getVida() {
+    public double getVida() {
         return vida;
     }
 
-    public void setVida(int vida) {
+    public void setVida(double vida) {
         this.vida = vida;
     }
 
-    public int getFuerza() {
+    public double getFuerza() {
         return fuerza;
     }
 
-    public void setFuerza(int fuerza) {
+    public void setFuerza(double fuerza) {
         this.fuerza = fuerza;
     }
 }

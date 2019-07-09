@@ -11,35 +11,27 @@ package proyectojuego;
 public class Monstruo extends Personaje{
     
     
-    public int limSup(int nivelLab){
-        int limSup=nivelLab*nivelLab;
-        return limSup;
-    }
     
-    public int limInf(int nivelLab){
-        int limInf=(nivelLab*nivelLab)/2;
-        return limInf;
-    }
 //    int limSup = nivelLab*nivelLab;
 //    int limInf= (nivelLab*nivelLab)/2;
     
-    private Juego j = new Juego();
+   
     
     /**
      * Constructor del Monstruo
      * 
      * @param fuerza 
      */
-    public Monstruo(int fuerza){
+    public Monstruo(double fuerza){
         super(fuerza);
-        this.fuerza= (int)((limSup(j.getNivelLab())-limInf(j.getNivelLab()))*Math.random());          
+        this.fuerza= fuerza;          
     }
 
-    public int getFuerza() {
+    public double getFuerza() {
         return fuerza;
     }
 
-    public void setFuerza(int fuerza) {
+    public void setFuerza(double fuerza) {
         this.fuerza = fuerza;
     }
     

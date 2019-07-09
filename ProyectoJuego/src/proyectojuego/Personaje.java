@@ -10,7 +10,7 @@ package proyectojuego;
  */
 public class Personaje {
     
-    protected int vida, fuerza;
+    protected double vida, fuerza;
     
     /**
      * Constructor del Personaje
@@ -18,7 +18,7 @@ public class Personaje {
      * @param vida
      * @param fuerza
      */
-    public Personaje(int vida, int fuerza){
+    public Personaje(double vida, double fuerza){
         this.vida= vida;
         this.fuerza=fuerza;
     }
@@ -28,7 +28,7 @@ public class Personaje {
      * 
      * @param fuerza 
      */
-    public Personaje(int fuerza){
+    public Personaje(double fuerza){
         this.fuerza=fuerza;
     }
 }

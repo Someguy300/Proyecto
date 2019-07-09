@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class Juego {
   
-    private int nivelLab=0;
+    private double nivelLab=1;
     private long tiempo;
     private int linJugador;
     private int colJugador;
@@ -75,10 +75,10 @@ public class Juego {
                 + "\t\t(S) para bajar\n");
 
         do { //Nuestro recorrido de niveles de Laberintos
-            nivelLab++;
+            
             
             System.out.println("Nivel " + nivelLab);
-            l.laberintoCompleto(l.tamañoLab(nivelLab));
+            l.laberintoCompleto(l.tamañoLab((int) nivelLab));
             j.bolsoInicial(bolso);
 
             colocarEnEntrada(l.getLab());
@@ -95,6 +95,7 @@ public class Juego {
             } while (verificarSalida(l.getLab()) == false && j.getVida()>0);
 
             if (j.getVida()>0){
+                nivelLab= nivelLab+1;
                 continuar=true;
             } else {
                 continuar=false;
@@ -261,12 +262,14 @@ public class Juego {
     }
     
     public boolean Pelea(char[][] vec, int lineaJug, int columJug) {
-        
-        Monstruo mon = new Monstruo(nivelLab);
+        Monstruo mon = new Monstruo(determinaFuerza(limInf(), limSup()));
         if (vec[lineaJug][columJug] == l.getMonstruoNormal()) {
+            System.out.println(mon.getFuerza());
+            System.out.println(j.getFuerza());
             if (j.getFuerza() > mon.getFuerza()) {
                 j.setFuerza(j.getFuerza() + 1);
                 System.out.println("Ganaste la pelea");
+                System.out.println("Nueva fuerza " + j.getFuerza());
                 return true;
             } else {
                 int chance = 1+(int) (Math.random()*9);
@@ -327,6 +330,22 @@ public class Juego {
         return true;
     }
     
+    public double limSup(){
+        return nivelLab*nivelLab;
+    }
+    
+    public double limInf(){
+        return (nivelLab*nivelLab)/2;
+    }
+    
+    public double determinaFuerza(double limInf, double limSup){
+        return limInf + (Math.random()*(limSup-limInf));
+    }
+    
+    
+    
+    
+    
 public int getLinJugador() {
         return linJugador;
     }
@@ -343,7 +362,7 @@ public int getLinJugador() {
         this.colJugador = colJugador;
     }
     
-    public int getNivelLab() {
+    public double getNivelLab() {
         return nivelLab;
     }
 
