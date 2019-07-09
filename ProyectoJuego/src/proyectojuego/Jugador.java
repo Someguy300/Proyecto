@@ -1,4 +1,3 @@
-
 package proyectojuego;
 
 /**
@@ -12,7 +11,6 @@ public class Jugador extends Personaje{
     
     private Objeto[] bolso = new Objeto[10];
     Pocima pocion;
-    
     /**
      * Constructor del Jugador
      * 
@@ -22,40 +20,49 @@ public class Jugador extends Personaje{
      */
     public Jugador(int vida, int fuerza, Objeto[] bolso) {
         super(vida, fuerza);
-        this.vida = vida;
-        this.fuerza = fuerza;
+        this.vida = 5;
+        this.fuerza = 10;
         this.bolso=bolso;
     }
+    
+   
     
     public void bolsoInicial(Objeto [] bolso){
         for (int i = 0; i < bolso.length; i++) {
             if (i<3){
             bolso[i]=pocion = new Pocima();
             }
+            
         }
     }
     
-    public void mostrarBolso(Objeto[] bolso) {
+    public void mostrarBolso(Objeto [] bolso){
         System.out.println("Dentro del bolso tienes: ");
         for (int i = 0; i < bolso.length; i++) {
-            if (bolso[i] != null) {
-                Pocima p = ((Pocima) bolso[i]);
-                if (bolso[i].isEsPico()) {
-                    System.out.println("Un pico");
+            if (bolso[i]!=null){
+            Pocima p = ((Pocima)bolso[i]);
+            if(bolso[i].isEsPico()){
+                System.out.println("Soy un pico");
+            } else {
+                if(p.isEsAditiva()){
+                    System.out.println("Soy una pocima aditiva, mi valor es: " + p.getValor());
                 } else {
-                    if (p.isEsAditiva()) {
-                        System.out.println("Soy una pocima aditiva, mi valor es: " + p.getValor());
-                    } else {
-                        System.out.println("Soy una pocima multiplicativa, mi valor es: " + p.getValor());
-                    }
-                }
+                    System.out.println("Soy una pocima multiplicativa, mi valor es: "+ p.getValor());  
+                }   
+            }
+            
             }
         }
     }
+    
+    
+    
 
     public Objeto[] getBolso() {
         return bolso;
     }
+
+  
 
     public int getVida() {
         return vida;
@@ -72,4 +79,8 @@ public class Jugador extends Personaje{
     public void setFuerza(int fuerza) {
         this.fuerza = fuerza;
     }
+    
+    
+    
+    
 }

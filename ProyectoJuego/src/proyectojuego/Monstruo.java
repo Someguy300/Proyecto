@@ -33,16 +33,6 @@ public class Monstruo extends Personaje{
     public Monstruo(int fuerza){
         super(fuerza);
         this.fuerza= (int)((limSup(j.getNivelLab())-limInf(j.getNivelLab()))*Math.random());          
+        
     }
-
-    public int getFuerza() {
-        return fuerza;
-    }
-
-    public void setFuerza(int fuerza) {
-        this.fuerza = fuerza;
-    }
-    
-    
-    
 }

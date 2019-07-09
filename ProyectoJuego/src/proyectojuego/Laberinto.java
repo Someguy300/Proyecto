@@ -60,7 +60,7 @@ public class Laberinto {
     public void setupParedesLaberinto(char[][] vec) {
         for (int i = 0; i < vec.length; i++) {
             for (int j = 0; j < vec[i].length; j++) {
-                if ((i == 0 || i == (vec.length - 1)) || (j == 0 || j == (vec[i].length - 1))) { //Determina paredes exteriores
+                if ((i == 0 || i == (vec.length - 1)) || (j == 0 || j == (lab[i].length - 1))) { //Determina paredes exteriores
                     vec[i][j] = p;
                 } else {
                     vec[i][j] = '░';   //Placeholder del interior
@@ -100,7 +100,9 @@ public class Laberinto {
         vec[filaEntrada][columnaEntrada] = ent;
         vec[filaSalida][columnaSalida] = sal;
         if (vec[filaEntrada][columnaEntrada] == vec[filaSalida][columnaSalida]) {
-            vec[filaSalida + 1][columnaSalida + 1] = sal;
+            filaEntrada = vec.length-1;
+            columnaEntrada = vec.length-2;
+            vec[filaEntrada][columnaEntrada] = ent;
         }
     }
 
@@ -121,27 +123,42 @@ public class Laberinto {
             System.out.println("|");
         }
     }
-////////////////////////////////HASTA AQUI ESTA FINO
+    //HASTA AQUI ESTA FINO
+
+  
+    /**
+     * Este método imprimira el Laberinto Completo
+     */
+//    public void laberintoCompleto() {
+//        tamañoLab(nivelLab);
+//        setupParedesLaberinto(lab);
+//        entradaYSalida(lab);
+//        dividirLab(lab, i, j);
+//        impresionLab(lab);
+//    }
+
+    
+    
     
     public boolean esImpar(int n) {
-        if (n % 2 == 0) {
-            return false;
-        } else {
-            return true;
-        }
+    if (n%2==0) return false;
+    else return true;
     }
     
-    public int largoParedesV(char[][] vec) {
+    public int largoParedesV(char [][]vec){
         for (int i = 1; i < vec.length; i++) {
             for (int j = 1; j < vec.length; j++) {
-                if (vec[i][j] == s) {
+                if (vec[i][j]==s){
                     for (int k = 1; k < vec.length; k++) {
-                        if (vec[k][j] == p) {
-                            return k - 1;
-                        }
+                        if (vec[k][j]==p){
+                            return k-1;
+                        } 
+                        
                     }
                 }
+                
             }
+            
         }
         return 0;
     }
@@ -158,8 +175,7 @@ public class Laberinto {
                     }
                 }
                 
-            }
-            
+            }  
         }
         return 0;
     }
@@ -192,21 +208,11 @@ public class Laberinto {
         return false;
     }
     
+    
     int ultColu;
     int ultFila;
     int aux1;
     int aux2;
-//    public void Laberinto(char [][]vec, int primCol, int ultCol, int primFil, int ultFil, int cont){
-//        if (cont <4){
-//            if (esImpar(cont)){
-//                ponerParedVer(vec, primCol, ultCol, primFil, ultFil);
-//            } else {
-//                ponerParedHor(vec, primCol, ultCol, primFil, ultFil);
-//            }
-//            Laberinto(vec, 1, ultCol-1, 1, ultFil, cont+1);
-//            Laberinto(vec, ultCol+1, ultFil, ultFil+1, ultFil, cont+1);
-//        }
-//    }
     public void Laberinto(char [][]vec, int primCol, int ultCol, int primFil, int ultFil, int cont){
         if (ultFila>3 && ultColu>3){
             if (esImpar(cont)){
@@ -219,40 +225,48 @@ public class Laberinto {
             Laberinto(vec, primCol, ultColu-1, primFil, ultFila-1, cont+1);
             Laberinto(vec, ultColu+1, ultCol, ultFila+1, ultFil, cont+1);
         }
+        
+        
     }
     
-    public int ponerParedVer(char[][] vec, int primCol, int ultCol, int primFil, int ultFil) {
+   
+    
+    public int ponerParedVer(char [][] vec, int primCol, int ultCol, int primFil, int ultFil){
         int aux = ultCol;
-        ultCol = 1 + primCol + (int) ((Math.random() * (ultCol - 2)));
-        boolean algoLados = false;
-        for (int k = 0; k < vec.length - 1; k++) {
-            if (vec[k][ultCol - 1] == ent || vec[k][ultCol - 1] == sal
-                    || vec[k][ultCol + 1] == ent || vec[k][ultCol + 1] == sal
-                    || vec[k][ultCol - 1] == p || vec[k][ultCol + 1] == p
-                    || vec[k][ultCol - 1] == nada || vec[k][ultCol + 1] == nada
-                    || vec[0][ultCol] == ent || vec[vec.length - 1][ultCol] == sal
-                    || vec[0][ultCol] == p || vec[vec.length - 1][ultCol] == p
-                    || vec[0][ultCol] == nada || vec[vec.length - 1][ultCol] == nada) {
-                algoLados = true;
+        ultCol = 1+primCol +(int) ((Math.random() * (ultCol-2)));
+            boolean algoLados=false;
+            for (int k = 0; k < vec.length-1; k++) {
+                if (vec[k][ultCol-1]== ent || vec[k][ultCol-1]== sal 
+                        || vec[k][ultCol+1]== ent || vec[k][ultCol+1]== sal
+                        || vec[k][ultCol-1]== p || vec[k][ultCol+1]== p
+                        || vec[k][ultCol-1]== nada || vec[k][ultCol+1]== nada
+                        || vec[0][ultCol]== ent || vec[vec.length-1][ultCol]== sal
+                        || vec[0][ultCol]== p || vec[vec.length-1][ultCol]== p
+                        || vec[0][ultCol]== nada || vec[vec.length-1][ultCol]== nada){
+                    algoLados=true;
+                }
             }
+        if (algoLados==true);{
+        int cont = 0;
+            do {            
+            ultCol = primCol +(int) ((Math.random() * (aux-1)));
+            cont = cont+1;
+        } while (cont<4);
         }
-        if (algoLados == true);
-        {
-            int cont = 0;
-            do {
-                ultCol = primCol + (int) ((Math.random() * (aux - 1)));
-                cont = cont + 1;
-            } while (cont < 4);
+        
+        
+        for (int k = primFil; k < ultFil+1; k++) {
+            vec[k][ultCol]=p;
         }
-        for (int k = primFil; k < ultFil + 1; k++) {
-            vec[k][ultCol] = p;
-        }
-        return ultCol;
+        
+        return ultCol; 
     }
-
-    public void ponerhuecoVer(char[][] vec, int ultCol, int primFil, int ultFil) {
-        int n = 1 + (int) (Math.random() * ((ultFil - primFil) - 1));
+    
+    
+    public void ponerhuecoVer (char[][]vec, int ultCol, int primFil, int ultFil){
+        int n = 1+(int) (Math.random() * ((ultFil-primFil)-1));
         vec[n][ultCol] = s;
+        
     }
     
     public int ponerParedHor(char [][] vec, int primCol, int ultCol, int primFil, int ultFil){
@@ -271,11 +285,14 @@ public class Laberinto {
             }
         if (algoLados==true){
             ultFil =  1 + primFil + (int) ((Math.random() * (ultFil-2)));
+            
         } 
+        
         for (int k = primCol; k < ultCol; k++) {
             vec[ultFil][k]=p;
         }
         return ultFil;
+        
     }
     
     public void ponerhuecoHor (char[][]vec, int ultFil, int primCol, int ultCol){
@@ -335,26 +352,28 @@ public class Laberinto {
         }
     }
     
-//    public int ponerPared(char [][] vec, int i, int j){
-//        j = 1+(int) (Math.random() * (vec.length-2));
-//        for (i = 1; i < vec.length-1; i++) {
-//            vec[i][j]=p;
-//            
-//        }
-//        return j;
-//    }
     
-    public void laberintoCompleto(char[][] tamaño){ 
+    
+    
+    
+    
+    public void laberintoCompleto(char[][] tamaño){ //Mentira que es el laberinto completo pero mientras, uso esto para ver que imprimo
         setupParedesLaberinto(lab);
         entradaYSalida(lab);
         ultColu = lab.length-2;
         ultFila = lab.length-2;
         Laberinto(lab, 1, lab.length-1, 1, lab.length-1, 1);
         colocarMonstruoNormal(lab);
-        colocarMonstruoMago(lab);
-        colocarMonstruoGuerrero(lab);
+  //      colocarMonstruoMago(lab);
+  //      colocarMonstruoGuerrero(lab);
         impresionLab(lab);
+        
     }
+    
+   
+    
+    
+    
 
     public char getP() {
         return p;
@@ -415,14 +434,12 @@ public class Laberinto {
     public char getMonstruoGuerrero() {
         return monstruoGuerrero;
     }
-
-    public int getFilaEntrada() {
-        return filaEntrada;
-    }
-
-    public int getColumnaEntrada() {
-        return columnaEntrada;
-    }
+    
+    
+    
+    
+    
+    
     
     
 }

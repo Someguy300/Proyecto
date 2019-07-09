@@ -7,10 +7,9 @@ package proyectojuego;
 
 /**
  *
- * @author Pedro Barrios
- * @author Ricardo Serrano
+ * @author Estudiantes
  */
-public class Pocima  extends Objeto{
+public class Pocima extends Objeto{
 
     private boolean esAditiva;
     private double valor;
@@ -61,12 +60,16 @@ public class Pocima  extends Objeto{
                     break;
             }
         }
+    }
+    
+    public void datosPocima(){
         if(esAditiva){
-            System.out.println("+"+valor);
+            System.out.println("Pocion +"+valor);
         } else {
-            System.out.println("x"+valor);
+            System.out.println("Pocion x"+valor);
         }
     }
+    
     
 
     public double getValor() {
@@ -80,4 +83,8 @@ public class Pocima  extends Objeto{
     public boolean isEsAditiva() {
         return esAditiva;
     }
+    
+    
+    
+    
 }
