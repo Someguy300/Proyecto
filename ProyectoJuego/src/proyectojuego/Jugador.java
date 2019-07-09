@@ -73,7 +73,7 @@ public class Jugador extends Personaje{
             } else if (bolso[seleccion]!=null){
                 Pocima p = ((Pocima) bolso[seleccion]);
                 if (bolso[seleccion].isEsPico()){
-                    System.out.println("Falta implementar");
+                    System.out.println("");
                 } else {
                     if (p.isEsAditiva()) {
                         System.out.println("Usaste la pocion y tu fuerza aumenta de manera aditiva por +"+p.getValor());
