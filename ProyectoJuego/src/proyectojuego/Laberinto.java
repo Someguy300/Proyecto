@@ -19,6 +19,8 @@ public class Laberinto {
     private char monstruoMago = 'Ω';
     private char monstruoGuerrero = 'α';
     
+    private char objeto = '?';
+    
     private int tamaño;
     private char[][] lab;
     private int filaEntrada;
@@ -334,15 +336,33 @@ public class Laberinto {
             } 
         }
     }
-    
-//    public int ponerPared(char [][] vec, int i, int j){
-//        j = 1+(int) (Math.random() * (vec.length-2));
-//        for (i = 1; i < vec.length-1; i++) {
-//            vec[i][j]=p;
-//            
-//        }
-//        return j;
-//    }
+
+    public void colocarObjetos(char[][]vec){
+        double variable;
+        for (int i = 0; i < vec.length; i++) {
+            for (int j = 0; j < vec.length; j++) {
+                if (vec[i][j]==s){
+                    variable = Math.random();
+                    if (variable<=0.005){
+                        vec[i][j]=objeto;
+                    }
+                }  
+                
+                if (vec[i][j]==s && vec[i-1][j]==s && vec[i+1][j]==p && vec[i][j-1]==p && vec[i][j-1]==p){
+                    vec[i][j]=objeto;
+                } else if (vec[i][j]==s && vec[i-1][j]==p && vec[i+1][j]==s && vec[i][j-1]==p && vec[i][j-1]==p){
+                    vec[i][j]=objeto;
+                } else if (vec[i][j]==s && vec[i-1][j]==p && vec[i+1][j]==p && vec[i][j-1]==s && vec[i][j-1]==p){
+                    vec[i][j]=objeto;
+                } else if (vec[i][j]==s && vec[i-1][j]==p && vec[i+1][j]==p && vec[i][j-1]==p && vec[i][j-1]==s){
+                    vec[i][j]=objeto;
+                }
+            }
+            
+        }
+        
+    }
+
     
     public void laberintoCompleto(char[][] tamaño){ 
         setupParedesLaberinto(lab);
@@ -353,7 +373,8 @@ public class Laberinto {
         colocarMonstruoNormal(lab);
         colocarMonstruoMago(lab);
         colocarMonstruoGuerrero(lab);
-        impresionLab(lab);
+        colocarObjetos(lab);
+        //impresionLab(lab);
     }
 
     public char getP() {
@@ -422,6 +443,10 @@ public class Laberinto {
 
     public int getColumnaEntrada() {
         return columnaEntrada;
+    }
+
+    public char getObjeto() {
+        return objeto;
     }
     
     

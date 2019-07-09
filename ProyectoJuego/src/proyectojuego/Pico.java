@@ -8,7 +8,7 @@ package proyectojuego;
  */
 public class Pico extends Objeto{
 
-    public Pico(boolean esPico) {
+    public Pico() {
         super(true);
     }
     
