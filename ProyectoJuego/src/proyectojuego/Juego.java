@@ -207,6 +207,7 @@ public class Juego {
                         vec[linJugador][colJugador]=l.getS();
                         colJugador=l.getColumnaEntrada();
                         linJugador=l.getFilaEntrada();
+                        vec[linJugador][colJugador]=Jugador;
                     }
                 } else if(vec[lineaJug - 1][columJug] == l.getObjeto()){
                     j.guardarObjetoRoam();
@@ -253,6 +254,7 @@ public class Juego {
                         vec[linJugador][colJugador]=l.getS();
                         colJugador=l.getColumnaEntrada();
                         linJugador=l.getFilaEntrada();
+                        vec[linJugador][colJugador]=Jugador;
                     }
                 } else if(vec[lineaJug + 1][columJug] == l.getObjeto()){
                     j.guardarObjetoRoam();
@@ -299,6 +301,7 @@ public class Juego {
                         vec[linJugador][colJugador]=l.getS();
                         colJugador=l.getColumnaEntrada();
                         linJugador=l.getFilaEntrada();
+                        vec[linJugador][colJugador]=Jugador;
                     }
                 } else if(vec[lineaJug][columJug+1] == l.getObjeto()){
                     j.guardarObjetoRoam();
@@ -345,6 +348,7 @@ public class Juego {
                         vec[linJugador][colJugador]=l.getS();
                         colJugador=l.getColumnaEntrada();
                         linJugador=l.getFilaEntrada();
+                        vec[linJugador][colJugador]=Jugador;
                     }
                 } else if(vec[lineaJug][columJug-1] == l.getObjeto()){
                     j.guardarObjetoRoam();
