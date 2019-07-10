@@ -32,9 +32,15 @@ public class Jugador extends Personaje{
     }
     
     public void bolsoInicial(Objeto [] bolso){
+        double random;
         for (int i = 0; i < bolso.length; i++) {
             if (i<3){
-            bolso[i]=pocion = new Pocima();
+                random = Math.random();
+                if (random<=0.7){
+                    bolso[i]=pocion = new Pocima();
+                } else{
+                    bolso[i]=pico=new Pico();
+                }
             }
         }
     }
