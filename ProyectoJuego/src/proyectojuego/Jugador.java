@@ -11,11 +11,12 @@ import java.util.Scanner;
  */
 public class Jugador extends Personaje{
     Scanner sc = new Scanner(System.in);
-    private Objeto[] bolso = new Objeto[10];
+    Objeto[] bolso = new Objeto[10];
     Pocima pocion;
     Pico pico;
-    private double bonusFuerza=0;
-    
+    double bonusFuerza=0;
+    int objetosUsados=0;
+    int objetosConseguidos=0;
     /**
      * Constructor del Jugador
      * 
@@ -58,7 +59,7 @@ public class Jugador extends Personaje{
     
     public void usarObjeto(){
         mostrarBolso(bolso);
-        System.out.println("Escoge el numero del objeto que quieres usar, o escribe 10 para regresar");
+        System.out.println("\n--->Escoge el numero del objeto que quieres usar, o escribe 10 para regresar");
         int seleccion = sc.nextInt();
         if (seleccion<0 || seleccion>10){
             System.out.println("ERROR, escriba un numero del 0 al 9 para usar una pocion o 10 para regresar");
@@ -71,18 +72,20 @@ public class Jugador extends Personaje{
                 System.out.println("Ahi no tienes nada guardado");
                 usarObjeto();
             } else if (bolso[seleccion]!=null){
-                Pocima p = ((Pocima) bolso[seleccion]);
-                if (bolso[seleccion].isEsPico()){
-                    System.out.println("");
+                if (bolso[seleccion].isEsPico()==true){
+                    System.out.println("Puedes usar un pico cuando camines hacia una pared");
                 } else {
+                    Pocima p = ((Pocima) bolso[seleccion]);
                     if (p.isEsAditiva()) {
                         System.out.println("Usaste la pocion y tu fuerza aumenta de manera aditiva por +"+p.getValor());
+                        objetosUsados = objetosUsados+1;
                         bonusFuerza = bonusFuerza+p.getValor();
                         fuerza = fuerza + p.getValor();
                         System.out.println("Tu nuevo stat de fuerza es " + fuerza);
                         bolso[seleccion]=null;
                     } else {
                         System.out.println("Usaste la pocion y tu fuerza aumenta de manera multiplicativa por x"+p.getValor());
+                        objetosUsados = objetosUsados+1;
                         if (bonusFuerza==0){
                             bonusFuerza = 1*p.getValor();
                         }else {
@@ -98,6 +101,8 @@ public class Jugador extends Personaje{
             System.out.println("No paso nada");
         }
     }
+    
+    
     
     public void guardarObjetoPelea(){
         double random = Math.random();
@@ -138,6 +143,7 @@ public class Jugador extends Personaje{
                             } while (seleccion<0 && seleccion>9);
                         }
                         bolso[opcionDescarte]=pocion;
+                        objetosConseguidos = objetosConseguidos +1;
                         break;
                 }
             } else if (bolsoLleno()==false){
@@ -145,9 +151,9 @@ public class Jugador extends Personaje{
                     if(bolso[i]==null){
                         bolso[i]=pocion;
                         break;
-                    }
-                    
+                    } 
                 }
+                objetosConseguidos = objetosConseguidos +1;
             }
         } else {
             System.out.println("El monstruo no solto nada");
@@ -193,6 +199,7 @@ public class Jugador extends Personaje{
                             } while (seleccion<0 && seleccion>9);
                         }
                         bolso[opcionDescarte]=pocion;
+                        objetosConseguidos = objetosConseguidos +1;
                         break;
                 }
             } else if (bolsoLleno()==false){
@@ -200,17 +207,18 @@ public class Jugador extends Personaje{
                     if(bolso[i]==null){
                         bolso[i]=pocion;
                         break;
-                    }
-                    
+                    }  
                 }
+                objetosConseguidos = objetosConseguidos +1;
             }
         } else {
-            System.out.println("Conseguiste un pico");
+            System.out.println("\n----------------------------"
+                    + "\nConseguiste un pico");
             pico = new Pico();
             if (bolsoLleno()==true){
                 System.out.println("Tu bolso esta lleno\n"
                         + "Quieres descartar el pico(0)"
-                        + "O cambiarla por algun otro objeto de tu bolso(1)");
+                        + "\tO cambiarla por algun otro objeto de tu bolso(1)");
                 int seleccion = sc.nextInt();
                 if (seleccion<0 || seleccion>1){
                     do {                        
@@ -234,16 +242,17 @@ public class Jugador extends Personaje{
                             } while (seleccion<0 && seleccion>9);
                         }
                         bolso[opcionDescarte]=pico;
+                        objetosConseguidos = objetosConseguidos +1;
                         break;
                 }
             } else if (bolsoLleno()==false){
                 for (int i = 0; i < bolso.length; i++) {
                     if(bolso[i]==null){
-                        bolso[i]=pico;
+                        bolso[i]= pico;
                         break;
-                    }
-                    
+                    } 
                 }
+                objetosConseguidos = objetosConseguidos +1;
             }
         }
     }
@@ -254,7 +263,7 @@ public class Jugador extends Personaje{
                 return false;
             }
         }
-        return false;
+        return true;
     }
     
 
@@ -286,6 +295,23 @@ public class Jugador extends Personaje{
         this.bonusFuerza = bonusFuerza;
     }
 
+    public int getObjetosUsados() {
+        return objetosUsados;
+    }
+
+    public void setObjetosUsados(int objetosUsados) {
+        this.objetosUsados = objetosUsados;
+    }
+
+    public int getObjetosConseguidos() {
+        return objetosConseguidos;
+    }
+
+    public void setObjetosConseguidos(int objetosConseguidos) {
+        this.objetosConseguidos = objetosConseguidos;
+    }
+    
+    
     
     @Override
     public void imprimirInfo() {

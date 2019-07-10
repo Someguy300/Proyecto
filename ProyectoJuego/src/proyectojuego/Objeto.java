@@ -9,7 +9,7 @@ package proyectojuego;
  * @version
  */
 public class Objeto {
-    private boolean esPico;
+    private final boolean esPico;
     
     public Objeto(boolean esPico){
         this.esPico=esPico;

@@ -23,7 +23,8 @@ public class Juego {
     Laberinto l = new Laberinto();
     Scanner sc = new Scanner(System.in);
     boolean continuar;
-    private int monstruosDerrotados=0;
+    int monstruosDerrotados=0;
+    
     Jugador j = new Jugador(5, 10, bolso);
     
     
@@ -65,31 +66,30 @@ public class Juego {
             selecPersonaje = sc.nextInt();
             switch (selecPersonaje) {
                 case 1:
-                    setJugador('J');
+                    Jugador ='J';
                     break;
                 case 2:
-                    setJugador('X');
+                    Jugador = 'X';
                     break;
                 case 3:
-                    setJugador('$');
+                    Jugador ='$';
                     break;
                 default:
                     System.out.println("Escogiste una opción erronea, por favor elige de nuevo.");
             }
         } while (selecPersonaje != 1 && selecPersonaje != 2 && selecPersonaje != 3);
+        j.bolsoInicial(bolso);
         
         System.out.println("\nPara moverte a traves del Laberinto utilizarás estas teclas:\n"
                 + "\t\t(W) para subir"
                 + "\n(A) para izquierda              (D) para derecha\n"
                 + "\t\t(S) para bajar\n"
                 + "(I) Para ver tu inventario\n");
-
+        
         do { //Nuestro recorrido de niveles de Laberintos
-            
             
             System.out.println("Nivel " + (int)nivelLab);
             l.laberintoCompleto(l.tamañoLab((int) nivelLab));
-            j.bolsoInicial(bolso);
             colocarEnEntrada(l.getLab());
             buscaSalida(l.getLab());
             System.out.println("----------------------");
@@ -125,8 +125,8 @@ public class Juego {
                 + ">> Tiempo jugado: " + tiempo + " s\n"
                 + ">> Tiempo promedio en cada laberinto: " + tiempo/nivelLab+ "\n"
                 + ">> Monstruos derrotados: " + monstruosDerrotados +"\n"
-                + ">> Objetos conseguidos: " + "\n"
-                + ">> Objetos usados: " + "\n");
+                + ">> Objetos conseguidos: " + j.getObjetosConseguidos() +"\n"
+                + ">> Objetos usados: " + j.getObjetosUsados()+"\n");
     }
     
     /**
@@ -175,7 +175,22 @@ public class Juego {
         switch(fuego){
             case "w":
                 if (vec[lineaJug - 1][columJug] == l.getP()) {
-                    System.out.println("Hay una pared a donde te quieres mover, intenta de nuevo");
+                    System.out.println("Hay una pared a donde te quieres mover");
+                    boolean usaPico = verificaPico();
+                    if (usaPico==true){
+                        System.out.println("Quieres romper la pared?(s/n)");
+                        String opcionPico = sc.next();
+                        switch (opcionPico){
+                            case"s":
+                                int posPico = buscaPico();
+                                vec[lineaJug-1][columJug]=l.getS();
+                                bolso[posPico]=null;
+                                break;
+                            case"n":
+                                System.out.println("No paso nada");
+                                break;
+                        }
+                    }
                     moverJugador(vec, lineaJug, columJug);
                 } else if (vec[lineaJug - 1][columJug] == l.getMonstruoGuerrero()
                         || vec[lineaJug - 1][columJug] == l.getMonstruoMago()
@@ -189,6 +204,7 @@ public class Juego {
                     linJugador = linJugador - 1;
                     } else if (pelea==false){
                         j.setVida(j.getVida()-1);
+                        vec[linJugador][colJugador]=l.getS();
                         colJugador=l.getColumnaEntrada();
                         linJugador=l.getFilaEntrada();
                     }
@@ -206,8 +222,22 @@ public class Juego {
                 
             case "s":
                 if (vec[lineaJug+1][columJug]==l.getP()){
-                    System.out.println("Hay una pared a donde te quieres mover, intenta de nuevo");
-                    moverJugador(vec, lineaJug, columJug);
+                    System.out.println("Hay una pared a donde te quieres mover");
+                    boolean usaPico = verificaPico();
+                    if (usaPico==true){
+                        System.out.println("Quieres romper la pared?(s/n)");
+                        String opcionPico = sc.next();
+                        switch (opcionPico){
+                            case"s":
+                                int posPico = buscaPico();
+                                vec[lineaJug + 1][columJug]=l.getS();
+                                bolso[posPico]=null;
+                                break;
+                            case"n":
+                                System.out.println("No paso nada");
+                                break;
+                        }
+                    }
                     } else if (vec[lineaJug+1][columJug]==l.getMonstruoGuerrero() 
                         || vec[lineaJug+1][columJug]==l.getMonstruoMago() 
                         || vec[lineaJug+1][columJug]==l.getMonstruoNormal()){
@@ -220,6 +250,7 @@ public class Juego {
                     linJugador = linJugador + 1;
                     } else if (pelea==false){
                         j.setVida(j.getVida()-1);
+                        vec[linJugador][colJugador]=l.getS();
                         colJugador=l.getColumnaEntrada();
                         linJugador=l.getFilaEntrada();
                     }
@@ -237,8 +268,22 @@ public class Juego {
                 
             case "d":
                 if (vec[lineaJug][columJug + 1] == l.getP()) {
-                    System.out.println("Hay una pared a donde te quieres mover, intenta de nuevo");
-                    moverJugador(vec, lineaJug, columJug);
+                    System.out.println("Hay una pared a donde te quieres mover");
+                    boolean usaPico = verificaPico();
+                    if (usaPico==true){
+                        System.out.println("Quieres romper la pared?(s/n)");
+                        String opcionPico = sc.next();
+                        switch (opcionPico){
+                            case"s":
+                                int posPico = buscaPico();
+                                vec[lineaJug][columJug+1]=l.getS();
+                                bolso[posPico]=null;
+                                break;
+                            case"n":
+                                System.out.println("No paso nada");
+                                break;
+                        }
+                    }
                 } else if (vec[lineaJug][columJug + 1] == l.getMonstruoGuerrero()
                         || vec[lineaJug][columJug + 1] == l.getMonstruoMago()
                         || vec[lineaJug][columJug + 1] == l.getMonstruoNormal()) {
@@ -251,6 +296,7 @@ public class Juego {
                     colJugador = colJugador + 1;
                     } else if (pelea==false){
                         j.setVida(j.getVida()-1);
+                        vec[linJugador][colJugador]=l.getS();
                         colJugador=l.getColumnaEntrada();
                         linJugador=l.getFilaEntrada();
                     }
@@ -268,8 +314,22 @@ public class Juego {
                 
             case "a":
                 if (vec[lineaJug][columJug - 1] == l.getP()) {
-                    System.out.println("Hay una pared a donde te quieres mover, intenta de nuevo");
-                    moverJugador(vec, lineaJug, columJug);
+                    System.out.println("Hay una pared a donde te quieres mover");
+                    boolean usaPico = verificaPico();
+                    if (usaPico==true){
+                        System.out.println("Quieres romper la pared?(s/n)");
+                        String opcionPico = sc.next();
+                        switch (opcionPico){
+                            case"s":
+                                int posPico = buscaPico();
+                                vec[lineaJug][columJug-1]=l.getS();
+                                bolso[posPico]=null;
+                                break;
+                            case"n":
+                                System.out.println("No paso nada");
+                                break;
+                        }
+                    }
                 } else if (vec[lineaJug][columJug - 1] == l.getMonstruoGuerrero()
                         || vec[lineaJug][columJug - 1] == l.getMonstruoMago()
                         || vec[lineaJug][columJug - 1] == l.getMonstruoNormal()) {
@@ -282,6 +342,7 @@ public class Juego {
                     colJugador = colJugador - 1;
                     } else if (pelea==false) {
                         j.setVida(j.getVida()-1);
+                        vec[linJugador][colJugador]=l.getS();
                         colJugador=l.getColumnaEntrada();
                         linJugador=l.getFilaEntrada();
                     }
@@ -303,6 +364,27 @@ public class Juego {
                 System.out.println("Seleccion erronea");
                 moverJugador(vec, lineaJug, columJug);
         }
+    }
+    
+    
+    public boolean verificaPico(){
+        for (int i = 0; i < bolso.length; i++) {
+            if(bolso[i]!=null){
+                if (bolso[i].isEsPico()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public int buscaPico(){
+        for (int i = 0; i < bolso.length; i++) {
+            if(bolso[i].isEsPico()){
+                return i;
+            }
+        }
+        return 0;
     }
     
     /**
@@ -348,8 +430,7 @@ public class Juego {
                 }
                 
             }
-        }    
-        if (vec[lineaJug][columJug] == l.getMonstruoGuerrero()) {
+        } else if (vec[lineaJug][columJug] == l.getMonstruoGuerrero()) {
                 mon.setFuerza(mon.getFuerza() + (mon.getFuerza() / 2));
                 System.out.println("Fuerza del monstruo: "+mon.getFuerza());
                 System.out.println("Tu fuerza: "+j.getFuerza());
@@ -375,8 +456,7 @@ public class Juego {
                 }
                 
             }
-        }
-        if (vec[linJugador][colJugador] == l.getMonstruoMago()) {
+        } else if (vec[lineaJug][columJug] == l.getMonstruoMago()) {
             double debuff = Math.random();
             if (debuff<= 0.25){
                 System.out.println("Te pegaron un hechizo y te mandaron al regreso del laberinto");
@@ -384,7 +464,7 @@ public class Juego {
                 j.setFuerza(j.getFuerza()-j.getBonusFuerza());
                 j.setBonusFuerza(0);
                 return false;
-            }
+            } else {
             System.out.println("Fuerza del monstruo: "+mon.getFuerza());
             System.out.println("Tu fuerza: "+j.getFuerza());
             if (j.getFuerza() > mon.getFuerza()) {
@@ -408,6 +488,7 @@ public class Juego {
                     return false;
                 }
                 
+            }
             }
         }
         return true;
@@ -449,13 +530,9 @@ public int getLinJugador() {
         return nivelLab;
     }
 
-    public char getJugador() {
-        return Jugador;
-    }
-
-    public void setJugador(char Jugador) {
-        this.Jugador = Jugador;
-    }
+    
+    
+     
     
 }
     
